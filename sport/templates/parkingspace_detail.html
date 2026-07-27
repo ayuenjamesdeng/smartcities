@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Parking Space Details</title>
+</head>
+<body>
+
+    <h1>Parking Space Details</h1>
+    <hr>
+
+    <p><strong>ID:</strong> {{ parkingspace.id }}</p>
+    <p><strong>Space Number:</strong> {{ parkingspace.space_number }}</p>
+    <p><strong>Location:</strong> {{ parkingspace.location }}</p>
+    <p><strong>Parking Type:</strong> {{ parkingspace.parking_type }}</p>
+    <p><strong>Status:</strong> {{ parkingspace.status }}</p>
+    <p><strong>Capacity:</strong> {{ parkingspace.capacity }}</p>
+
+    <br>
+
+    <a href="{% url 'all_parkingspace' %}">Back to Parking Spaces</a>
+
+</body>
+</html>

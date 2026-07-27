@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Public Transport</title>
+
+    <style>
+
+        body{
+            font-family:Arial, sans-serif;
+            background:#f4f4f4;
+            margin:0;
+            padding:0;
+        }
+
+        h1{
+            text-align:center;
+            background:darkblue;
+            color:white;
+            padding:20px;
+        }
+
+        table{
+            width:95%;
+            margin:20px auto;
+            border-collapse:collapse;
+            background:white;
+        }
+
+        th{
+            background:darkblue;
+            color:white;
+            padding:12px;
+        }
+
+        td{
+            border:1px solid #ddd;
+            padding:10px;
+            text-align:center;
+        }
+
+        tr:nth-child(even){
+            background:#f9f9f9;
+        }
+
+        tr:hover{
+            background:#e8f0ff;
+        }
+
+        .btn{
+            display:block;
+            width:180px;
+            margin:20px auto;
+            padding:12px;
+            text-align:center;
+            text-decoration:none;
+            background:green;
+            color:white;
+            border-radius:5px;
+        }
+
+        .btn:hover{
+            background:darkgreen;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<h1>Public Transport</h1>
+
+<a href="/transport/add/" class="btn">Add Public Transport</a>
+
+<table>
+
+<tr>
+    <th>ID</th>
+    <th>Vehicle</th>
+    <th>Route</th>
+    <th>Driver Name</th>
+    <th>Capacity</th>
+</tr>
+
+{% for x in transport %}
+
+<tr>
+    <td>{{ x.id }}</td>
+    <td>{{ x.vehicle }}</td>
+    <td>{{ x.route }}</td>
+    <td>{{ x.driver_name }}</td>
+    <td>{{ x.capacity }}</td>
+</tr>
+
+{% endfor %}
+
+</table>
+
+</body>
+</html>

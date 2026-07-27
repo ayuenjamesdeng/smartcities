@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Signal Details</title>
+</head>
+<body>
+
+    <h1>Signal Details</h1>
+
+    <p><strong>ID:</strong> {{ signal.id }}</p>
+    <p><strong>Signal Name:</strong> {{ signal.signal_name }}</p>
+    <p><strong>Location:</strong> {{ signal.location }}</p>
+    <p><strong>Status:</strong> {{ signal.status }}</p>
+    <p><strong>Duration (Seconds):</strong> {{ signal.duration }}</p>
+    <p><strong>Date Created:</strong> {{ signal.created_at }}</p>
+
+    <br>
+
+    <a href="{% url 'all_signals' %}">Back to All Signals</a>
+
+</body>
+</html>

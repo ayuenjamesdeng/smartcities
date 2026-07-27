@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Parking Space</title>
+</head>
+<body>
+
+    <h1>Add Parking Space</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <p>
+            <label>Parking Space Number:</label><br>
+            <input type="text" name="space_number" required>
+        </p>
+
+        <p>
+            <label>Location:</label><br>
+            <input type="text" name="location" required>
+        </p>
+
+        <p>
+            <label>Space Type:</label><br>
+            <select name="space_type">
+                <option value="Car">Car</option>
+                <option value="Motorcycle">Motorcycle</option>
+                <option value="Bus">Bus</option>
+                <option value="Truck">Truck</option>
+            </select>
+        </p>
+
+        <p>
+            <label>Status:</label><br>
+            <select name="status">
+                <option value="Available">Available</option>
+                <option value="Occupied">Occupied</option>
+                <option value="Reserved">Reserved</option>
+            </select>
+        </p>
+
+        <button type="submit">Save Parking Space</button>
+        <button type="reset">Clear</button>
+    </form>
+
+    <br>
+    <a href="{% url 'all_parking_spaces' %}">Back to All Parking Spaces</a>
+
+</body>
+</html>

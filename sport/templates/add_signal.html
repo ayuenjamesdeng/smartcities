@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Signal</title>
+</head>
+<body>
+
+    <h1>Add New Traffic Signal</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <p>
+            <label>Signal Name:</label><br>
+            <input type="text" name="signal_name" required>
+        </p>
+
+        <p>
+            <label>Location:</label><br>
+            <input type="text" name="location" required>
+        </p>
+
+        <p>
+            <label>Signal Type:</label><br>
+            <select name="signal_type">
+                <option value="Traffic Light">Traffic Light</option>
+                <option value="Pedestrian">Pedestrian</option>
+                <option value="Railway">Railway Crossing</option>
+            </select>
+        </p>
+
+        <p>
+            <label>Status:</label><br>
+            <select name="status">
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+                <option value="Maintenance">Maintenance</option>
+            </select>
+        </p>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Signal</title>
+</head>
+<body>
+
+    <h1>Add New Traffic Signal</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <p>
+            <label>Signal Name:</label><br>
+            <input type="text" name="signal_name" required>
+        </p>
+
+        <p>
+            <label>Location:</label><br>
+            <input type="text" name="location" required>
+        </p>
+
+        <p>
+            <label>Signal Type:</label><br>
+            <select name="signal_type">
+                <option value="Traffic Light">Traffic Light</option>
+                <option value="Pedestrian">Pedestrian</option>
+                <option value="Railway">Railway Crossing</option>
+            </select>
+        </p>
+
+        <p>
+            <label>Status:</label><br>
+            <select name="status">
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+                <option value="Maintenance">Maintenance</option>
+            </select>
+        </p>
+
+        <p>
+            <label>Installation Date:</label><br>
+            <input type="date" name="installation_date">
+        </p>
+
+        <button type="submit">Save Signal</button>
+    </form>
+
+    <br>
+    <a href="{% url 'all_signals' %}">Back to All Signals</a>
+
+</body>
+</html>
+        
+        
+
+
+        

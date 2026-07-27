@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Citizen Details</title>
+
+    <style>
+
+        body{
+            font-family:Arial, sans-serif;
+            background:#f4f4f4;
+        }
+
+        .container{
+            width:500px;
+            margin:50px auto;
+            background:white;
+            padding:20px;
+            border-radius:10px;
+            box-shadow:0 0 10px gray;
+        }
+
+        h1{
+            text-align:center;
+            color:darkblue;
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+        }
+
+        td{
+            padding:12px;
+            border-bottom:1px solid #ddd;
+        }
+
+        .label{
+            font-weight:bold;
+            width:40%;
+        }
+
+        a{
+            text-decoration:none;
+            color:white;
+            background:darkblue;
+            padding:10px 20px;
+            border-radius:5px;
+        }
+
+        .button{
+            text-align:center;
+            margin-top:20px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Citizen Details</h1>
+
+<table>
+
+<tr>
+    <td class="label">Citizen ID</td>
+    <td>{{ citizen.id }}</td>
+</tr>
+
+<tr>
+    <td class="label">Full Name</td>
+    <td>{{ citizen.full_name }}</td>
+</tr>
+
+<tr>
+    <td class="label">Phone Number</td>
+    <td>{{ citizen.phone }}</td>
+</tr>
+
+<tr>
+    <td class="label">Email</td>
+    <td>{{ citizen.email }}</td>
+</tr>
+
+<tr>
+    <td class="label">Address</td>
+    <td>{{ citizen.address }}</td>
+</tr>
+
+</table>
+
+<div class="button">
+    <a href="/citizens/">Back to Citizens</a>
+</div>
+
+</div>
+
+</body>
+</html>

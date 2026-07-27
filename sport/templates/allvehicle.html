@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>All Vehicles</title>
+    <style>
+        table{
+            width:100%;
+            border-collapse:collapse;
+        }
+        th, td{
+            border:1px solid black;
+            padding:8px;
+            text-align:center;
+        }
+        th{
+            background-color:#f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+<h2>All Vehicles</h2>
+
+<a href="{% url 'add_vehicle' %}">Add New Vehicle</a>
+<br><br>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Plate Number</th>
+        <th>Vehicle Type</th>
+        <th>Owner</th>
+        <th>Parking Space</th>
+        <th>Entry Time</th>
+        <th>Actions</th>
+    </tr>
+
+    {% for vehicle in vehicles %}
+    <tr>
+        <td>{{ vehicle.id }}</td>
+        <td>{{ vehicle.plate_number }}</td>
+        <td>{{ vehicle.vehicle_type }}</td>
+        <td>{{ vehicle.owner.full_name }}</td>
+        <td>{{ vehicle.parking_space.space_number }}</td>
+        <td>{{ vehicle.entry_time }}</td>
+        <td>
+            <a href="{% url 'vehicle_details' vehicle.id %}">Details</a> |
+            <a href="{% url 'update_vehicle' vehicle.id %}">Update</a> |
+            <a href="{% url 'delete_vehicle' vehicle.id %}">Delete</a>
+        </td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="7">No vehicles found.</td>
+    </tr>
+    {% endfor %}
+
+</table>
+
+<br>
+<a href="{% url 'home' %}">Back to Home</a>
+
+</body>
+</html>

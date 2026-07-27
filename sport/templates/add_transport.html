@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Transport</title>
+</head>
+<body>
+
+    <h1>Add Transport</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <label>Transport Name:</label><br>
+        <input type="text" name="transport_name"><br><br>
+
+        <label>Transport Type:</label><br>
+        <input type="text" name="transport_type"><br><br>
+
+        <label>Route:</label><br>
+        <input type="text" name="route"><br><br>
+
+        <label>Capacity:</label><br>
+        <input type="number" name="capacity"><br><br>
+
+        <label>Driver Name:</label><br>
+        <input type="text" name="driver_name"><br><br>
+
+        <label>Status:</label><br>
+        <select name="status">
+            <option value="Active">Active</option>
+            <option value="Inactive">Inactive</option>
+        </select><br><br>
+
+        <button type="submit">Save Transport</button>
+    </form>
+
+    <br>
+
+    <a href="{% url 'all_transport' %}">View All Transport</a> |
+    <a href="{% url 'home' %}">Home</a>
+
+</body>
+</html>

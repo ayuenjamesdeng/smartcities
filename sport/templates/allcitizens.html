@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>All Citizens</title>
+
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            background:#f2f2f2;
+            margin:0;
+            padding:0;
+        }
+
+        h1{
+            text-align:center;
+            background:darkblue;
+            color:white;
+            padding:20px;
+        }
+
+        table{
+            width:90%;
+            margin:30px auto;
+            border-collapse:collapse;
+            background:white;
+        }
+
+        th{
+            background:darkblue;
+            color:white;
+            padding:12px;
+        }
+
+        td{
+            padding:10px;
+            text-align:center;
+            border:1px solid #ddd;
+        }
+
+        tr:nth-child(even){
+            background:#f9f9f9;
+        }
+
+        tr:hover{
+            background:#e6f2ff;
+        }
+
+        .button{
+            display:block;
+            width:180px;
+            margin:20px auto;
+            text-align:center;
+            padding:10px;
+            background:green;
+            color:white;
+            text-decoration:none;
+            border-radius:5px;
+        }
+
+        .button:hover{
+            background:darkgreen;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<h1>Registered Citizens</h1>
+
+<a href="/citizens/add/" class="button">Add New Citizen</a>
+
+<table>
+
+<tr>
+    <th>ID</th>
+    <th>Full Name</th>
+    <th>Phone</th>
+    <th>Email</th>
+    <th>Address</th>
+</tr>
+
+{% for x in allcitizens %}
+
+<tr>
+    <td>{{ x.id }}</td>
+    <td>{{ x.full_name }}</td>
+    <td>{{ x.phone }}</td>
+    <td>{{ x.email }}</td>
+    <td>{{ x.address }}</td>
+</tr>
+
+{% endfor %}
+
+</table>
+
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Smart Cities</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #f8fafc;
+            color: #111827;
+        }
+        .sidebar {
+            width: 250px;
+            background: #0f172a;
+            color: white;
+            min-height: 100vh;
+            padding: 24px 16px;
+            box-sizing: border-box;
+            position: fixed;
+        }
+        .sidebar a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 12px 14px;
+            border-radius: 10px;
+            margin-bottom: 8px;
+        }
+        .sidebar a:hover { background: #1e293b; }
+        .main {
+            margin-left: 250px;
+            padding: 32px;
+        }
+        .topbar {
+            background: white;
+            padding: 16px 20px;
+            border-radius: 14px;
+            box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+            margin-bottom: 20px;
+        }
+        .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+        .card { background: white; padding: 20px; border-radius: 14px; box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06); }
+        .card h3 { margin-top: 0; color: #2563eb; }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Dashboard</h2>
+        <a href="/dashboard/">Overview</a>
+        <a href="/citizens/">Citizens</a>
+        <a href="/vehicles/">Vehicles</a>
+        <a href="/signals/">Signals</a>
+        <a href="/routes/">Routes</a>
+        <a href="/transport/">Transport</a>
+        <a href="/payments/">Payments</a>
+        <a href="/staff/">Staff</a>
+        <a href="/calculations/">Calculations</a>
+    </div>
+
+    <div class="main">
+        <div class="topbar">
+            <h1>Welcome to your Dashboard</h1>
+            <p>Manage city systems from this modern admin workspace.</p>
+        </div>
+        <div class="cards">
+            <div class="card"><h3>Citizens</h3><p>Manage resident profiles and contacts.</p></div>
+            <div class="card"><h3>Traffic</h3><p>Monitor and update signal systems.</p></div>
+            <div class="card"><h3>Transport</h3><p>Track routes and public mobility services.</p></div>
+            <div class="card"><h3>Reports</h3><p>Review payments, staff, and calculations.</p></div>
+        </div>
+    </div>
+</body>
+</html>

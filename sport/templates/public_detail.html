@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Public Details</title>
+</head>
+<body>
+
+    <h1>Public Details</h1>
+
+    <table border="1" cellpadding="8">
+        <tr>
+            <th>ID</th>
+            <td>{{ public.id }}</td>
+        </tr>
+        <tr>
+            <th>Full Name</th>
+            <td>{{ public.full_name }}</td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td>{{ public.email }}</td>
+        </tr>
+        <tr>
+            <th>Phone Number</th>
+            <td>{{ public.phone_number }}</td>
+        </tr>
+        <tr>
+            <th>Address</th>
+            <td>{{ public.address }}</td>
+        </tr>
+        <tr>
+            <th>Date Registered</th>
+            <td>{{ public.created_at }}</td>
+        </tr>
+    </table>
+
+    <br>
+
+    <a href="{% url 'all_public' %}">Back to Public List</a>
+
+</body>
+</html>

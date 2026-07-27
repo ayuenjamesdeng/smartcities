@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>All Payments</title>
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 20px;
+        }
+        h2{
+            text-align: center;
+            color: darkblue;
+        }
+        table{
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+        th, td{
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        th{
+            background-color: #007BFF;
+            color: white;
+        }
+        tr:nth-child(even){
+            background-color: #f2f2f2;
+        }
+        tr:hover{
+            background-color: #ddd;
+        }
+        a{
+            text-decoration: none;
+            color: blue;
+        }
+        .add-btn{
+            display: inline-block;
+            margin-bottom: 15px;
+            padding: 10px 15px;
+            background: green;
+            color: white;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>All Payments</h2>
+
+<a href="{% url 'add_payment' %}" class="add-btn">Add Payment</a>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Citizen</th>
+        <th>Vehicle</th>
+        <th>Amount</th>
+        <th>Payment Method</th>
+        <th>Payment Date</th>
+        <th>Status</th>
+        <th>Actions</th>
+    </tr>
+
+    {% for payment in payments %}
+    <tr>
+        <td>{{ payment.id }}</td>
+        <td>{{ payment.citizen.full_name }}</td>
+        <td>{{ payment.vehicle.plate_number }}</td>
+        <td>{{ payment.amount }}</td>
+        <td>{{ payment.payment_method }}</td>
+        <td>{{ payment.payment_date }}</td>
+        <td>{{ payment.status }}</td>
+        <td>
+            <a href="{% url 'payment_details' payment.id %}">Details</a> |
+            <a href="{% url 'update_payment' payment.id %}">Edit</a> |
+            <a href="{% url 'delete_payment' payment.id %}">Delete</a>
+        </td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="8">No payment records found.</td>
+    </tr>
+    {% endfor %}
+
+</table>
+
+</body>
+</html>

@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %}
+All Parking Spaces
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+    <h2 class="text-center mb-4">All Parking Spaces</h2>
+
+    <a href="{% url 'add_parkingspace' %}" class="btn btn-primary mb-3">
+        Add Parking Space
+    </a>
+
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Space Number</th>
+                <th>Location</th>
+                <th>Status</th>
+                <th>Capacity</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for space in parkingspaces %}
+            <tr>
+                <td>{{ space.id }}</td>
+                <td>{{ space.space_number }}</td>
+                <td>{{ space.location }}</td>
+                <td>{{ space.status }}</td>
+                <td>{{ space.capacity }}</td>
+                <td>
+                    <a href="{% url 'parkingspace_details' space.id %}" class="btn btn-info btn-sm">
+                        Details
+                    </a>
+
+                    <a href="{% url 'update_parkingspace' space.id %}" class="btn btn-warning btn-sm">
+                        Edit
+                    </a>
+
+                    <a href="{% url 'delete_parkingspace' space.id %}" class="btn btn-danger btn-sm">
+                        Delete
+                    </a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6" class="text-center">
+                    No parking spaces available.
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+{% endblock %}

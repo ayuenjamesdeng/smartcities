@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}All Calculations{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+    <h2 class="text-center mb-4">All Calculations</h2>
+
+    <a href="{% url 'add_calculation' %}" class="btn btn-primary mb-3">
+        Add Calculation
+    </a>
+
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Vehicle</th>
+                <th>Parking Space</th>
+                <th>Hours Parked</th>
+                <th>Rate per Hour</th>
+                <th>Total Amount</th>
+                <th>Calculation Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for calculation in calculations %}
+            <tr>
+                <td>{{ calculation.id }}</td>
+                <td>{{ calculation.vehicle }}</td>
+                <td>{{ calculation.parking_space }}</td>
+                <td>{{ calculation.hours_parked }}</td>
+                <td>{{ calculation.rate_per_hour }}</td>
+                <td>{{ calculation.total_amount }}</td>
+                <td>{{ calculation.calculation_date }}</td>
+                <td>
+                    <a href="{% url 'calculation_detail' calculation.id %}" class="btn btn-info btn-sm">View</a>
+                    <a href="{% url 'update_calculation' calculation.id %}" class="btn btn-warning btn-sm">Edit</a>
+                    <a href="{% url 'delete_calculation' calculation.id %}" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="8" class="text-center">No calculation records found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

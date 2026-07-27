@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Vehicle Details</title>
+</head>
+<body>
+
+    <h1>Vehicle Details</h1>
+
+    <p><strong>Owner:</strong> {{ vehicle.owner.full_name }}</p>
+    <p><strong>Plate Number:</strong> {{ vehicle.plate_number }}</p>
+    <p><strong>Vehicle Type:</strong> {{ vehicle.vehicle_type }}</p>
+    <p><strong>Color:</strong> {{ vehicle.color }}</p>
+    <p><strong>Brand:</strong> {{ vehicle.brand }}</p>
+    <p><strong>Model:</strong> {{ vehicle.model }}</p>
+    <p><strong>Entry Time:</strong> {{ vehicle.entry_time }}</p>
+    <p><strong>Status:</strong> {{ vehicle.status }}</p>
+
+    <br>
+
+    <a href="{% url 'vehicle_list' %}">Back to Vehicle List</a>
+    <a href="{% url 'update_vehicle' vehicle.id %}">Edit</a>
+    <a href="{% url 'delete_vehicle' vehicle.id %}">Delete</a>
+
+</body>
+</html>

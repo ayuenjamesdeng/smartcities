@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | Smart Cities</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #f8fbff 0%, #eef4ff 100%);
+            color: #1f2937;
+        }
+        .nav {
+            background: #0f172a;
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+        .nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 16px;
+            font-weight: 600;
+        }
+        .hero {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 32px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
+        }
+        h1 { color: #2563eb; }
+        .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 24px; }
+        .card { padding: 20px; border-radius: 14px; background: #f8fafc; border: 1px solid #e2e8f0; }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <strong>Smart Cities Dashboard</strong>
+        <div>
+            <a href="/">Home</a>
+            <a href="/services/">Services</a>
+            <a href="/about/">About</a>
+            <a href="/login/">Login</a>
+        </div>
+    </div>
+
+    <div class="hero">
+        <h1>About Our Platform</h1>
+        <p>This system helps cities manage citizens, vehicles, traffic systems, transport routes, public transit, staff, and reporting in one unified dashboard.</p>
+        <div class="card-grid">
+            <div class="card"><h3>Smart Operations</h3><p>Monitor services and streamline mobility workflows.</p></div>
+            <div class="card"><h3>Data-Driven</h3><p>Use clear reports and structured records for better decisions.</p></div>
+            <div class="card"><h3>Easy Access</h3><p>Navigate from a clean landing page into a secure dashboard experience.</p></div>
+        </div>
+    </div>
+</body>
+</html>

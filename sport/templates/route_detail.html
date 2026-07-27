@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Route Details</title>
+
+    <style>
+
+        body{
+            font-family:Arial, sans-serif;
+            background:#f2f2f2;
+        }
+
+        .container{
+            width:500px;
+            margin:50px auto;
+            background:white;
+            padding:20px;
+            border-radius:10px;
+            box-shadow:0px 0px 10px gray;
+        }
+
+        h1{
+            text-align:center;
+            color:darkblue;
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+        }
+
+        td{
+            padding:12px;
+            border-bottom:1px solid #ddd;
+        }
+
+        .title{
+            font-weight:bold;
+            width:40%;
+        }
+
+        .btn{
+            display:block;
+            width:150px;
+            margin:20px auto;
+            text-align:center;
+            background:darkblue;
+            color:white;
+            text-decoration:none;
+            padding:10px;
+            border-radius:5px;
+        }
+
+        .btn:hover{
+            background:green;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Transport Route Details</h1>
+
+<table>
+
+<tr>
+    <td class="title">Route ID</td>
+    <td>{{ route.id }}</td>
+</tr>
+
+<tr>
+    <td class="title">Route Name</td>
+    <td>{{ route.route_name }}</td>
+</tr>
+
+<tr>
+    <td class="title">Start Point</td>
+    <td>{{ route.start_point }}</td>
+</tr>
+
+<tr>
+    <td class="title">End Point</td>
+    <td>{{ route.end_point }}</td>
+</tr>
+
+<tr>
+    <td class="title">Distance (km)</td>
+    <td>{{ route.distance }}</td>
+</tr>
+
+</table>
+
+<a href="/routes/" class="btn">Back to Routes</a>
+
+</div>
+
+</body>
+</html>

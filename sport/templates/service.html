@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services | Smart Cities</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #f8fbff 0%, #eef4ff 100%);
+            color: #1f2937;
+        }
+        .nav {
+            background: #0f172a;
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+        .nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 16px;
+            font-weight: 600;
+        }
+        .hero {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 32px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
+        }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 20px; }
+        .item { padding: 18px; border-radius: 14px; background: #f8fafc; border: 1px solid #e2e8f0; }
+        h1, h3 { color: #2563eb; }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <strong>Smart Cities Dashboard</strong>
+        <div>
+            <a href="/">Home</a>
+            <a href="/services/">Services</a>
+            <a href="/about/">About</a>
+            <a href="/login/">Login</a>
+        </div>
+    </div>
+
+    <div class="hero">
+        <h1>Core Services</h1>
+        <p>Our platform brings together essential civic and mobility modules into one secure and modern dashboard.</p>
+        <div class="grid">
+            <div class="item"><h3>Citizen Management</h3><p>Track residents, contacts, and profiles.</p></div>
+            <div class="item"><h3>Traffic & Mobility</h3><p>Manage signals, routes, transport, and parking.</p></div>
+            <div class="item"><h3>Reporting</h3><p>Review payments, staff records, and calculations.</p></div>
+            <div class="item"><h3>Admin Dashboard</h3><p>Use a centralized workspace after login.</p></div>
+        </div>
+    </div>
+</body>
+</html>

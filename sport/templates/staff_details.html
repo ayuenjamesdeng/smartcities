@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Staff Details</title>
+</head>
+<body>
+
+    <h1>Staff Details</h1>
+
+    <table border="1" cellpadding="10">
+        <tr>
+            <th>Staff ID</th>
+            <td>{{ staff.id }}</td>
+        </tr>
+
+        <tr>
+            <th>Full Name</th>
+            <td>{{ staff.full_name }}</td>
+        </tr>
+
+        <tr>
+            <th>Gender</th>
+            <td>{{ staff.gender }}</td>
+        </tr>
+
+        <tr>
+            <th>Phone Number</th>
+            <td>{{ staff.phone }}</td>
+        </tr>
+
+        <tr>
+            <th>Email</th>
+            <td>{{ staff.email }}</td>
+        </tr>
+
+        <tr>
+            <th>Position</th>
+            <td>{{ staff.position }}</td>
+        </tr>
+
+        <tr>
+            <th>Salary</th>
+            <td>{{ staff.salary }}</td>
+        </tr>
+
+        <tr>
+            <th>Date Employed</th>
+            <td>{{ staff.date_employed }}</td>
+        </tr>
+    </table>
+
+    <br>
+
+    <a href="{% url 'all_staff' %}">Back to Staff List</a>
+
+</body>
+</html>

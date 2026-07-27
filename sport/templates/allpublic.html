@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>All Public Records</title>
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            background:#f4f4f4;
+            margin:20px;
+        }
+        h2{
+            text-align:center;
+        }
+        table{
+            width:100%;
+            border-collapse:collapse;
+            background:white;
+        }
+        th, td{
+            border:1px solid #ddd;
+            padding:10px;
+            text-align:left;
+        }
+        th{
+            background:#007bff;
+            color:white;
+        }
+        tr:nth-child(even){
+            background:#f2f2f2;
+        }
+        a{
+            text-decoration:none;
+            color:blue;
+            margin-right:10px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>All Public Records</h2>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Full Name</th>
+        <th>National ID</th>
+        <th>Phone Number</th>
+        <th>Email</th>
+        <th>Address</th>
+        <th>Actions</th>
+    </tr>
+
+    {% for public in publics %}
+    <tr>
+        <td>{{ public.id }}</td>
+        <td>{{ public.full_name }}</td>
+        <td>{{ public.national_id }}</td>
+        <td>{{ public.phone_number }}</td>
+        <td>{{ public.email }}</td>
+        <td>{{ public.address }}</td>
+        <td>
+            <a href="{% url 'public_details' public.id %}">View</a>
+            <a href="{% url 'update_public' public.id %}">Edit</a>
+            <a href="{% url 'delete_public' public.id %}">Delete</a>
+        </td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="7">No public records found.</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<br>
+<a href="{% url 'add_public' %}">Add New Public Record</a>
+
+</body>
+</html>
