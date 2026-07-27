@@ -1,30 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About | Smart Cities</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
         body {
             margin: 0;
-            font-family: 'Segoe UI', Arial, sans-serif;
+            padding: 0;
+            font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
             background: linear-gradient(135deg, #f8fbff 0%, #eef4ff 100%);
             color: #1f2937;
         }
+
         .nav {
-            background: #0f172a;
-            padding: 16px 24px;
+            background: #1e3a8a;
+            padding: 18px 28px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             color: white;
+            box-shadow: 0 8px 24px rgba(15, 23, 42, 0.18);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
-        .nav a {
-            color: white;
+
+        .nav-brand {
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
+        }
+
+        .link {
+            color: rgba(255, 255, 255, 0.92);
             text-decoration: none;
             margin-left: 16px;
             font-weight: 600;
+            padding: 8px 12px;
+            border-radius: 999px;
+            position: relative;
+            transition: all 0.3s ease;
         }
+
+        .link::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 4px;
+            width: 0;
+            height: 2px;
+            background: white;
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .link:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.14);
+            transform: translateY(-2px);
+        }
+
+        .link:hover::after {
+            width: 60%;
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+        }
+
         .hero {
             max-width: 900px;
             margin: 40px auto;
@@ -33,30 +84,78 @@
             border-radius: 20px;
             box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
         }
-        h1 { color: #2563eb; }
-        .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 24px; }
-        .card { padding: 20px; border-radius: 14px; background: #f8fafc; border: 1px solid #e2e8f0; }
+
+        .login-link {
+            background: #0f172a;
+            padding: 9px 18px;
+            border-radius: 999px;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 6px 16px rgba(15, 23, 42, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .login-link:hover {
+            background: #2563eb;
+            transform: translateY(-2px) scale(1.03);
+            box-shadow: 0 10px 20px rgba(37, 99, 235, 0.22);
+        }
+
+        h1 {
+            color: #2563eb;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .card {
+            padding: 20px;
+            border-radius: 14px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+        }
     </style>
 </head>
+
 <body>
     <div class="nav">
-        <strong>Smart Cities Dashboard</strong>
-        <div>
-            <a href="/">Home</a>
-            <a href="/services/">Services</a>
-            <a href="/about/">About</a>
-            <a href="/login/">Login</a>
+        <div class="nav-brand">Smart Cities and Mobility</div>
+        <div class="nav-links">
+            <div>
+                <a href="/" class="link">Home</a>
+                <a href="/services/" class="link">Services</a>
+                <a href="/about/" class="link">About</a>
+            </div>
+            <div>
+                <a href="/login/" class="login-link">Login</a>
+            </div>
         </div>
     </div>
 
     <div class="hero">
         <h1>About Our Platform</h1>
-        <p>This system helps cities manage citizens, vehicles, traffic systems, transport routes, public transit, staff, and reporting in one unified dashboard.</p>
+        <p>This system helps cities manage citizens, vehicles, traffic systems, transport routes, public transit, staff,
+            and reporting in one unified dashboard.</p>
         <div class="card-grid">
-            <div class="card"><h3>Smart Operations</h3><p>Monitor services and streamline mobility workflows.</p></div>
-            <div class="card"><h3>Data-Driven</h3><p>Use clear reports and structured records for better decisions.</p></div>
-            <div class="card"><h3>Easy Access</h3><p>Navigate from a clean landing page into a secure dashboard experience.</p></div>
+            <div class="card">
+                <h3>Smart Operations</h3>
+                <p>Monitor services and streamline mobility workflows.</p>
+            </div>
+            <div class="card">
+                <h3>Data-Driven</h3>
+                <p>Use clear reports and structured records for better decisions.</p>
+            </div>
+            <div class="card">
+                <h3>Easy Access</h3>
+                <p>Navigate from a clean landing page into a secure dashboard experience.</p>
+            </div>
         </div>
     </div>
 </body>
+
 </html>
