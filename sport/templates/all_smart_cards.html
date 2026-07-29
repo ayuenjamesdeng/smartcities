@@ -1,0 +1,48 @@
+{% extends "dashboard_base.html" %}
+
+{% block calculations_active %}active{% endblock %}
+
+{% block page_title %}Smart Cards{% endblock %}
+
+{% block content %}
+<div class="card" data-aos="fade-up">
+  <div class="card-header">
+    <h2>All Smart Cards</h2>
+    <a href="{% url 'add_smart_card' %}" class="btn btn-primary"><i data-lucide="plus" size="16"></i> Add New</a>
+  </div>
+  <div class="table-responsive">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Card #</th>
+          <th>Citizen</th>
+          <th>Balance</th>
+          <th>Status</th>
+          <th>Issued</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for c in all_cards %}
+        <tr>
+          <td>{{ c.id }}</td>
+          <td>{{ c.card_number }}</td>
+          <td>{% if c.citizen %}{{ c.citizen.full_name }}{% else %}—{% endif %}</td>
+          <td>${{ c.balance }}</td>
+          <td>
+            {% if c.status == "Active" %}<span class="badge badge-green">{{ c.status }}</span>
+            {% elif c.status == "Inactive" %}<span class="badge badge-red">{{ c.status }}</span>
+            {% elif c.status == "Blocked" %}<span class="badge badge-gray">{{ c.status }}</span>
+            {% else %}<span class="badge badge-yellow">{{ c.status }}</span>
+            {% endif %}
+          </td>
+          <td>{{ c.issued_date|date:"Y-m-d" }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="6"><div class="empty-state"><i data-lucide="credit-card" size="32"></i><p>No smart cards found.</p></div></td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

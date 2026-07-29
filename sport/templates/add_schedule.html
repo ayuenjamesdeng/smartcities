@@ -1,0 +1,48 @@
+{% extends "dashboard_base.html" %}
+
+{% block calculations_active %}active{% endblock %}
+
+{% block page_title %}Add Schedule{% endblock %}
+
+{% block content %}
+<div class="card form-card" data-aos="fade-up">
+  <div class="card-header">
+    <h2>New Transport Schedule</h2>
+  </div>
+  <form method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="route_id">Route</label>
+      <select id="route_id" name="route_id" required>
+        <option value="">Select a route</option>
+        {% for r in routes %}
+        <option value="{{ r.id }}">{{ r.route_name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="departure_time">Departure Time</label>
+      <input type="time" id="departure_time" name="departure_time" required>
+    </div>
+    <div class="form-group">
+      <label for="arrival_time">Arrival Time</label>
+      <input type="time" id="arrival_time" name="arrival_time" required>
+    </div>
+    <div class="form-group">
+      <label for="days_of_week">Days of Week</label>
+      <input type="text" id="days_of_week" name="days_of_week" placeholder="Mon,Tue,Wed,Thu,Fri,Sat,Sun">
+      <small style="color:#64748b;font-size:0.75rem;">Mon,Tue,Wed,Thu,Fri,Sat,Sun</small>
+    </div>
+    <div class="form-group">
+      <label>
+        <input type="checkbox" id="is_active" name="is_active" checked>
+        Active
+      </label>
+    </div>
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary"><i data-lucide="save" size="16"></i> Save Schedule</button>
+      <a href="{% url 'all_schedules' %}" class="btn btn-secondary">Cancel</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

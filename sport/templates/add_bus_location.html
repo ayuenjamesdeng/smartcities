@@ -1,0 +1,45 @@
+{% extends "dashboard_base.html" %}
+
+{% block calculations_active %}active{% endblock %}
+
+{% block page_title %}Add Bus Location{% endblock %}
+
+{% block content %}
+<div class="card form-card" data-aos="fade-up">
+  <div class="card-header">
+    <h2>New Bus Location</h2>
+  </div>
+  <form method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="bus_id">Bus</label>
+      <select id="bus_id" name="bus_id" required>
+        <option value="">Select a bus</option>
+        {% for b in buses %}
+        <option value="{{ b.id }}">{{ b.driver_name }} - {{ b.plate }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="latitude">Latitude</label>
+      <input type="number" id="latitude" name="latitude" step="any" required>
+    </div>
+    <div class="form-group">
+      <label for="longitude">Longitude</label>
+      <input type="number" id="longitude" name="longitude" step="any" required>
+    </div>
+    <div class="form-group">
+      <label for="speed">Speed</label>
+      <input type="number" id="speed" name="speed" required>
+    </div>
+    <div class="form-group">
+      <label for="heading">Heading</label>
+      <input type="text" id="heading" name="heading">
+    </div>
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary"><i data-lucide="save" size="16"></i> Save Location</button>
+      <a href="{% url 'all_bus_locations' %}" class="btn btn-secondary">Cancel</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

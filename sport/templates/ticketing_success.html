@@ -1,0 +1,171 @@
+{% extends "base.html" %}
+{% block title %}Ticket Purchased — Smart City{% endblock %}
+{% block head %}
+<style>
+  .success-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 24px;
+    min-height: calc(100vh - 68px - 72px);
+  }
+  .success-card {
+    background: #fff;
+    border-radius: 16px;
+    border: 1px solid #e2e8f0;
+    padding: 40px 36px;
+    max-width: 560px;
+    width: 100%;
+    text-align: center;
+  }
+  .success-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: #f0fdf4;
+    color: #16a34a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+  }
+  .success-card h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 24px;
+  }
+  .detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    text-align: left;
+    margin-bottom: 24px;
+  }
+  .detail-item {
+    padding: 10px 0;
+    border-bottom: 1px solid #f1f5f9;
+  }
+  .detail-item .label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #64748b;
+    margin-bottom: 2px;
+  }
+  .detail-item .value {
+    font-size: 0.95rem;
+    color: #0f172a;
+  }
+  .qr-box {
+    background: #f8fafc;
+    border: 2px dashed #e2e8f0;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 28px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.85rem;
+    color: #334155;
+    text-align: center;
+    word-break: break-all;
+  }
+  .badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 100px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+  .badge-green { background: #f0fdf4; color: #16a34a; }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 18px;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(59,130,246,0.3);
+  }
+  .btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(59,130,246,0.4);
+  }
+  .btn-secondary {
+    background: #f1f5f9;
+    color: #475569;
+    border: 1px solid #e2e8f0;
+  }
+  .btn-secondary:hover { background: #e2e8f0; }
+  .btn-group {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+  }
+  @media (max-width: 480px) {
+    .detail-grid { grid-template-columns: 1fr; }
+    .btn-group { flex-direction: column; }
+    .success-card { padding: 28px 20px; }
+  }
+</style>
+{% endblock %}
+{% block content %}
+<div class="success-wrapper">
+  <div class="success-card" data-aos="fade-up">
+    <div class="success-icon">
+      <i data-lucide="check-circle" size="36"></i>
+    </div>
+    <h2>Ticket Purchased Successfully!</h2>
+
+    <div class="detail-grid">
+      <div class="detail-item">
+        <div class="label">Ticket Number</div>
+        <div class="value"><code>{{ ticket.ticket_number }}</code></div>
+      </div>
+      <div class="detail-item">
+        <div class="label">Route</div>
+        <div class="value">{{ ticket.route.route_name }}</div>
+      </div>
+      <div class="detail-item">
+        <div class="label">Amount</div>
+        <div class="value">${{ ticket.amount }}</div>
+      </div>
+      <div class="detail-item">
+        <div class="label">Payment Method</div>
+        <div class="value">{{ ticket.payment_method|title }}</div>
+      </div>
+      <div class="detail-item">
+        <div class="label">Status</div>
+        <div class="value"><span class="badge badge-green">{{ ticket.status }}</span></div>
+      </div>
+      <div class="detail-item">
+        <div class="label">Valid Until</div>
+        <div class="value">{{ ticket.valid_until|date:"M d, Y H:i" }}</div>
+      </div>
+    </div>
+
+    <div class="qr-box">{{ ticket.qr_code }}</div>
+
+    <div class="btn-group">
+      <a href="{% url 'ticketing' %}" class="btn btn-primary"><i data-lucide="ticket" size="16"></i> View My Tickets</a>
+      <a href="{% url 'user_dashboard' %}" class="btn btn-secondary"><i data-lucide="layout-dashboard" size="16"></i> Back to Dashboard</a>
+    </div>
+  </div>
+</div>
+
+<script src="https://unpkg.com/lucide@latest"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init({ duration: 600, once: true, easing: 'ease-out-cubic' });
+  lucide.createIcons();
+</script>
+{% endblock %}

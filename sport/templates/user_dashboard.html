@@ -1,0 +1,413 @@
+{% extends "base.html" %}
+
+{% block title %}My Dashboard — Smart City{% endblock %}
+
+{% block head %}
+<style>
+  .page-header {
+    background: linear-gradient(135deg, #0f172a, #1e3a8a);
+    color: #fff;
+    padding: 48px 40px;
+  }
+
+  .page-header h1 {
+    font-size: 1.75rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 6px;
+  }
+
+  .page-header p {
+    color: rgba(255,255,255,0.6);
+    font-size: 0.9rem;
+  }
+
+  .dash-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 32px;
+  }
+
+  .card {
+    background: #fff;
+    border-radius: 16px;
+    border: 1px solid #e2e8f0;
+    padding: 24px;
+  }
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .card-header h2 {
+    font-size: 1.15rem;
+    font-weight: 700;
+  }
+
+  .dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  @media (max-width: 768px) {
+    .dashboard-grid { grid-template-columns: 1fr; }
+    .dash-content { padding: 20px 16px; }
+    .page-header { padding: 36px 20px; }
+    .page-header h1 { font-size: 1.4rem; }
+  }
+
+  .detail-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+  }
+
+  .detail-field { padding: 12px 0; border-bottom: 1px solid #f1f5f9; }
+  .detail-field:last-child { border-bottom: none; }
+
+  .detail-field .label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #64748b;
+    margin-bottom: 2px;
+  }
+
+  .detail-field .value {
+    font-size: 1rem;
+    color: #0f172a;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  table th {
+    text-align: left;
+    padding: 10px 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #64748b;
+    border-bottom: 2px solid #e2e8f0;
+  }
+
+  table td {
+    padding: 10px 12px;
+    font-size: 0.85rem;
+    border-bottom: 1px solid #f1f5f9;
+    color: #334155;
+  }
+
+  table tbody tr:hover { background: #f8fafc; }
+
+  .badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 100px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  .badge-green { background: #f0fdf4; color: #16a34a; }
+  .badge-red { background: #fef2f2; color: #dc2626; }
+  .badge-yellow { background: #fefce8; color: #ca8a04; }
+  .badge-blue { background: #eff6ff; color: #2563eb; }
+  .badge-gray { background: #f1f5f9; color: #64748b; }
+
+  .empty-state {
+    text-align: center;
+    padding: 32px 20px;
+    color: #94a3b8;
+  }
+
+  .empty-state i { margin-bottom: 8px; opacity: 0.5; }
+  .empty-state p { font-size: 0.85rem; }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 18px;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(59,130,246,0.3);
+  }
+
+  .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(59,130,246,0.4); }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="page-header" data-aos="fade-down">
+  <h1>Welcome, {{ citizen.full_name }}</h1>
+  <p><i data-lucide="id-card" size="14" style="vertical-align:middle;margin-right:4px;"></i> National ID: {{ citizen.national_id }}</p>
+</section>
+
+<div class="dash-content">
+  <div class="dashboard-grid">
+    <div class="card" data-aos="fade-up">
+      <div class="card-header">
+        <h2><i data-lucide="user" size="18" style="vertical-align:middle;margin-right:8px;"></i> My Profile</h2>
+      </div>
+      <div class="detail-grid">
+        <div class="detail-field"><div class="label">Full Name</div><div class="value">{{ citizen.full_name }}</div></div>
+        <div class="detail-field"><div class="label">Gender</div><div class="value">{{ citizen.gender }}</div></div>
+        <div class="detail-field"><div class="label">Phone</div><div class="value">{{ citizen.phone }}</div></div>
+        <div class="detail-field"><div class="label">Email</div><div class="value">{{ citizen.email }}</div></div>
+        <div class="detail-field"><div class="label">Address</div><div class="value">{{ citizen.address }}</div></div>
+        <div class="detail-field"><div class="label">National ID</div><div class="value">{{ citizen.national_id }}</div></div>
+      </div>
+    </div>
+
+    <div class="card" data-aos="fade-up" data-aos-delay="50">
+      <div class="card-header">
+        <h2><i data-lucide="car" size="18" style="vertical-align:middle;margin-right:8px;"></i> My Vehicles</h2>
+      </div>
+      {% if vehicles %}
+      <table>
+        <thead>
+          <tr>
+            <th>Plate Number</th>
+            <th>Type</th>
+            <th>Brand</th>
+            <th>Color</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for vehicle in vehicles %}
+          <tr>
+            <td>{{ vehicle.plate_number }}</td>
+            <td>{{ vehicle.vehicle_type }}</td>
+            <td>{{ vehicle.brand }}</td>
+            <td>{{ vehicle.color }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <div class="empty-state">
+        <i data-lucide="car" size="32"></i>
+        <p>No vehicles registered.</p>
+      </div>
+      {% endif %}
+    </div>
+
+    <div class="card" data-aos="fade-up" data-aos-delay="100">
+      <div class="card-header">
+        <h2><i data-lucide="credit-card" size="18" style="vertical-align:middle;margin-right:8px;"></i> My Smart Cards</h2>
+      </div>
+      {% if smart_cards %}
+      <table>
+        <thead>
+          <tr>
+            <th>Card Number</th>
+            <th>Balance</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for card in smart_cards %}
+          <tr>
+            <td>{{ card.card_number }}</td>
+            <td>${{ card.balance }}</td>
+            <td><span class="badge {% if card.status == 'Active' %}badge-green{% else %}badge-red{% endif %}">{{ card.status }}</span></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <div class="empty-state">
+        <i data-lucide="credit-card" size="32"></i>
+        <p>No smart cards.</p>
+      </div>
+      {% endif %}
+    </div>
+
+    <div class="card" data-aos="fade-up" data-aos-delay="150">
+      <div class="card-header">
+        <h2><i data-lucide="ticket" size="18" style="vertical-align:middle;margin-right:8px;"></i> My Recent Tickets</h2>
+      </div>
+      {% if tickets %}
+      <table>
+        <thead>
+          <tr>
+            <th>Ticket No.</th>
+            <th>Route</th>
+            <th>Amount</th>
+            <th>Payment</th>
+            <th>Status</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for ticket in tickets %}
+          <tr>
+            <td>{{ ticket.ticket_number }}</td>
+            <td>{{ ticket.route.route_name }}</td>
+            <td>${{ ticket.amount }}</td>
+            <td>{{ ticket.payment_method }}</td>
+            <td>
+              {% if ticket.status == 'Active' %}
+              <span class="badge badge-green">{{ ticket.status }}</span>
+              {% elif ticket.status == 'Used' %}
+              <span class="badge badge-blue">{{ ticket.status }}</span>
+              {% elif ticket.status == 'Expired' %}
+              <span class="badge badge-red">{{ ticket.status }}</span>
+              {% else %}
+              <span class="badge badge-gray">{{ ticket.status }}</span>
+              {% endif %}
+            </td>
+            <td>{{ ticket.purchase_date|date:"M d, Y" }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <div class="empty-state">
+        <i data-lucide="ticket" size="32"></i>
+        <p>No tickets purchased yet.</p>
+      </div>
+      {% endif %}
+    </div>
+
+    <div class="card" data-aos="fade-up" data-aos-delay="200">
+      <div class="card-header">
+        <h2><i data-lucide="bus" size="18" style="vertical-align:middle;margin-right:8px;"></i> Live Bus Tracking</h2>
+        <a href="{% url 'bus_tracking' %}" class="btn btn-primary"><i data-lucide="map" size="16"></i> View Live Map</a>
+      </div>
+      {% if bus_locations %}
+      <table>
+        <thead>
+          <tr>
+            <th>Driver</th>
+            <th>Route</th>
+            <th>Latitude</th>
+            <th>Longitude</th>
+            <th>Speed</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for bus in bus_locations %}
+          <tr>
+            <td>{{ bus.bus.driver_name }}</td>
+            <td>{{ bus.bus.route.route_name }}</td>
+            <td>{{ bus.latitude }}</td>
+            <td>{{ bus.longitude }}</td>
+            <td>{{ bus.speed }} km/h</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <div class="empty-state">
+        <i data-lucide="bus" size="32"></i>
+        <p>No bus location data available.</p>
+      </div>
+      {% endif %}
+    </div>
+
+    <div class="card" data-aos="fade-up" data-aos-delay="250">
+      <div class="card-header">
+        <h2><i data-lucide="traffic-cone" size="18" style="vertical-align:middle;margin-right:8px;"></i> Traffic Signals Status</h2>
+      </div>
+      {% if signals %}
+      <table>
+        <thead>
+          <tr>
+            <th>Location</th>
+            <th>Status</th>
+            <th>Installed</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for signal in signals %}
+          <tr>
+            <td>{{ signal.location }}</td>
+            <td>
+              {% if signal.signal_status == 'Operational' or signal.signal_status == 'Active' %}
+              <span class="badge badge-green">{{ signal.signal_status }}</span>
+              {% elif signal.signal_status == 'Maintenance' or signal.signal_status == 'Under Maintenance' %}
+              <span class="badge badge-yellow">{{ signal.signal_status }}</span>
+              {% elif signal.signal_status == 'Faulty' or signal.signal_status == 'Inactive' %}
+              <span class="badge badge-red">{{ signal.signal_status }}</span>
+              {% else %}
+              <span class="badge badge-gray">{{ signal.signal_status }}</span>
+              {% endif %}
+            </td>
+            <td>{{ signal.installation_date|date:"M d, Y" }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <div class="empty-state">
+        <i data-lucide="traffic-cone" size="32"></i>
+        <p>No traffic signal data available.</p>
+      </div>
+      {% endif %}
+    </div>
+
+    <div class="card" data-aos="fade-up" data-aos-delay="300">
+      <div class="card-header">
+        <h2><i data-lucide="calendar-clock" size="18" style="vertical-align:middle;margin-right:8px;"></i> Transport Schedules</h2>
+      </div>
+      {% if schedules %}
+      <table>
+        <thead>
+          <tr>
+            <th>Route</th>
+            <th>Departure</th>
+            <th>Arrival</th>
+            <th>Days</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for s in schedules %}
+          <tr>
+            <td>{{ s.route.route_name }}</td>
+            <td>{{ s.departure_time|time:"H:i" }}</td>
+            <td>{{ s.arrival_time|time:"H:i" }}</td>
+            <td>{{ s.days_of_week }}</td>
+            <td>
+              {% if s.is_active %}
+              <span class="badge badge-green">Active</span>
+              {% else %}
+              <span class="badge badge-red">Inactive</span>
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <div class="empty-state">
+        <i data-lucide="calendar-clock" size="32"></i>
+        <p>No transport schedules available.</p>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

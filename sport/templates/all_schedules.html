@@ -1,0 +1,46 @@
+{% extends "dashboard_base.html" %}
+
+{% block calculations_active %}active{% endblock %}
+
+{% block page_title %}Transport Schedules{% endblock %}
+
+{% block content %}
+<div class="card" data-aos="fade-up">
+  <div class="card-header">
+    <h2>All Transport Schedules</h2>
+    <a href="{% url 'add_schedule' %}" class="btn btn-primary"><i data-lucide="plus" size="16"></i> Add New</a>
+  </div>
+  <div class="table-responsive">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Route Name</th>
+          <th>Departure</th>
+          <th>Arrival</th>
+          <th>Days</th>
+          <th>Active</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for s in all_schedules %}
+        <tr>
+          <td>{{ s.id }}</td>
+          <td>{{ s.route.route_name }}</td>
+          <td>{{ s.departure_time|time:"H:i" }}</td>
+          <td>{{ s.arrival_time|time:"H:i" }}</td>
+          <td>{{ s.days_of_week }}</td>
+          <td>
+            {% if s.is_active %}<span class="badge badge-green">Yes</span>
+            {% else %}<span class="badge badge-red">No</span>
+            {% endif %}
+          </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="6"><div class="empty-state"><i data-lucide="clock" size="32"></i><p>No schedules found.</p></div></td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends "dashboard_base.html" %}
+
+{% block calculations_active %}active{% endblock %}
+
+{% block page_title %}Bus Locations{% endblock %}
+
+{% block content %}
+<div class="card" data-aos="fade-up">
+  <div class="card-header">
+    <h2>All Bus Locations</h2>
+    <a href="{% url 'add_bus_location' %}" class="btn btn-primary"><i data-lucide="plus" size="16"></i> Add New</a>
+  </div>
+  <div class="table-responsive">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Bus Driver</th>
+          <th>Route</th>
+          <th>Latitude</th>
+          <th>Longitude</th>
+          <th>Speed</th>
+          <th>Heading</th>
+          <th>Timestamp</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for loc in locations %}
+        <tr>
+          <td>{{ loc.id }}</td>
+          <td>{{ loc.bus.driver_name }}</td>
+          <td>{{ loc.bus.route.route_name }}</td>
+          <td>{{ loc.latitude }}</td>
+          <td>{{ loc.longitude }}</td>
+          <td>{{ loc.speed }}</td>
+          <td>{{ loc.heading }}</td>
+          <td>{{ loc.timestamp|date:"Y-m-d H:i" }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="8"><div class="empty-state"><i data-lucide="map-pin" size="32"></i><p>No bus locations recorded.</p></div></td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

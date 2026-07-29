@@ -1,0 +1,52 @@
+{% extends "dashboard_base.html" %}
+
+{% block calculations_active %}active{% endblock %}
+
+{% block page_title %}Tickets{% endblock %}
+
+{% block content %}
+<div class="card" data-aos="fade-up">
+  <div class="card-header">
+    <h2>All Tickets</h2>
+    <a href="#" class="btn btn-primary"><i data-lucide="plus" size="16"></i> Add New</a>
+  </div>
+  <div class="table-responsive">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Ticket #</th>
+          <th>Citizen</th>
+          <th>Route</th>
+          <th>Amount</th>
+          <th>Method</th>
+          <th>Status</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for t in all_tickets %}
+        <tr>
+          <td>{{ t.id }}</td>
+          <td>{{ t.ticket_number }}</td>
+          <td>{% if t.citizen %}{{ t.citizen.full_name }}{% else %}—{% endif %}</td>
+          <td>{{ t.route.route_name }}</td>
+          <td>${{ t.amount }}</td>
+          <td>{{ t.payment_method }}</td>
+          <td>
+            {% if t.status == "Confirmed" %}<span class="badge badge-green">{{ t.status }}</span>
+            {% elif t.status == "Cancelled" %}<span class="badge badge-red">{{ t.status }}</span>
+            {% elif t.status == "Refunded" %}<span class="badge badge-yellow">{{ t.status }}</span>
+            {% else %}<span class="badge badge-blue">{{ t.status }}</span>
+            {% endif %}
+          </td>
+          <td>{{ t.purchase_date|date:"Y-m-d" }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="8"><div class="empty-state"><i data-lucide="ticket" size="32"></i><p>No tickets found.</p></div></td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

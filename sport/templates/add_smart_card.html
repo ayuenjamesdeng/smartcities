@@ -1,0 +1,41 @@
+{% extends "dashboard_base.html" %}
+
+{% block calculations_active %}active{% endblock %}
+
+{% block page_title %}Add Smart Card{% endblock %}
+
+{% block content %}
+<div class="card form-card" data-aos="fade-up">
+  <div class="card-header">
+    <h2>New Smart Card</h2>
+  </div>
+  <form method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="citizen_id">Citizen</label>
+      <select id="citizen_id" name="citizen_id" required>
+        <option value="">Select a citizen</option>
+        {% for c in citizens %}
+        <option value="{{ c.id }}">{{ c.full_name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="balance">Balance</label>
+      <input type="number" id="balance" name="balance" step="0.01" required>
+    </div>
+    <div class="form-group">
+      <label for="status">Status</label>
+      <select id="status" name="status">
+        <option value="Active">Active</option>
+        <option value="Inactive">Inactive</option>
+        <option value="Blocked">Blocked</option>
+      </select>
+    </div>
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary"><i data-lucide="save" size="16"></i> Save Card</button>
+      <a href="{% url 'all_smart_cards' %}" class="btn btn-secondary">Cancel</a>
+    </div>
+  </form>
+</div>
+{% endblock %}
