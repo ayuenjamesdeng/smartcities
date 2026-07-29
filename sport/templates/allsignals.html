@@ -1,47 +1,44 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>All Signals</title>
-</head>
-<body>
-
-    <h1>All Traffic Signals</h1>
-
-    <a href="{% url 'add_signal' %}">Add New Signal</a>
-    <br><br>
-
-    <table border="1" cellpadding="8">
-        <tr>
-            <th>ID</th>
-            <th>Signal Name</th>
-            <th>Location</th>
-            <th>Status</th>
-            <th>Timing (Seconds)</th>
-            <th>Actions</th>
-        </tr>
-
-        {% for signal in signals %}
-        <tr>
-            <td>{{ signal.id }}</td>
-            <td>{{ signal.signal_name }}</td>
-            <td>{{ signal.location }}</td>
-            <td>{{ signal.status }}</td>
-            <td>{{ signal.timing }}</td>
-            <td>
-                <a href="{% url 'signal_details' signal.id %}">Details</a> |
-                <a href="{% url 'update_signal' signal.id %}">Edit</a> |
-                <a href="{% url 'delete_signal' signal.id %}">Delete</a>
-            </td>
-        </tr>
-        {% empty %}
-        <tr>
-            <td colspan="6">No signals available.</td>
-        </tr>
-        {% endfor %}
-    </table>
-
-    <br>
-    <a href="{% url 'home' %}">Back to Home</a>
-
-</body>
-</html>
+{% extends "dashboard_base.html" %}
+{% block title %}All Signals — Smart City Platform{% endblock %}
+{% block page_title %}Traffic Signals{% endblock %}
+{% block signals_active %}active{% endblock %}
+{% block content %}
+<div class="card" data-aos="fade-up">
+  <div class="card-header">
+    <h2>Traffic Signals</h2>
+    <a href="{% url 'add_signal' %}" class="btn btn-primary"><i data-lucide="plus" size="16"></i> Add Signal</a>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Location</th>
+        <th>Status</th>
+        <th>Installation Date</th>
+        <th>Last Maintenance</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for s in allsignals %}
+      <tr>
+        <td>{{ s.id }}</td>
+        <td><a href="{% url 'signal_detail' s.id %}">{{ s.location }}</a></td>
+        <td>
+          {% if s.signal_status == "Active" %}
+            <span class="badge badge-green">Active</span>
+          {% elif s.signal_status == "Maintenance" %}
+            <span class="badge badge-yellow">Maintenance</span>
+          {% else %}
+            <span class="badge badge-red">{{ s.signal_status }}</span>
+          {% endif %}
+        </td>
+        <td>{{ s.installation_date }}</td>
+        <td>{{ s.last_maintenance }}</td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="5"><div class="empty-state"><i data-lucide="traffic-cone" size="32"></i><p>No traffic signals registered.</p></div></td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

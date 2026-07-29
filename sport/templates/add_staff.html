@@ -1,41 +1,44 @@
-{% extends 'base.html' %}
+{% extends "dashboard_base.html" %}
+{% block title %}Add Staff — Smart City Platform{% endblock %}
+{% block page_title %}Add Staff{% endblock %}
+{% block staff_active %}active{% endblock %}
 
 {% block content %}
-
-<div class="container mt-4">
-    <h2>Add Staff</h2>
-
-    <form method="POST">
-        {% csrf_token %}
-
-        <div class="mb-3">
-            <label>Full Name</label>
-            <input type="text" name="full_name" class="form-control" required>
-        </div>
-
-        <div class="mb-3">
-            <label>Position</label>
-            <input type="text" name="position" class="form-control" required>
-        </div>
-
-        <div class="mb-3">
-            <label>Phone Number</label>
-            <input type="text" name="phone_number" class="form-control" required>
-        </div>
-
-        <div class="mb-3">
-            <label>Email</label>
-            <input type="email" name="email" class="form-control">
-        </div>
-
-        <div class="mb-3">
-            <label>Address</label>
-            <textarea name="address" class="form-control" rows="3"></textarea>
-        </div>
-
-        <button type="submit" class="btn btn-primary">Save Staff</button>
-        <a href="{% url 'all_staff' %}" class="btn btn-secondary">Cancel</a>
-    </form>
+<div class="card form-card" data-aos="fade-up">
+  <div class="card-header">
+    <h2>New Staff Member</h2>
+    <a href="{% url 'allstaff' %}" class="btn btn-secondary"><i data-lucide="arrow-left" size="16"></i> Back</a>
+  </div>
+  <form method="post" action="{% url 'add_staff' %}">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="first_name">First Name</label>
+      <input type="text" id="first_name" name="first_name" required>
+    </div>
+    <div class="form-group">
+      <label for="last_name">Last Name</label>
+      <input type="text" id="last_name" name="last_name" required>
+    </div>
+    <div class="form-group">
+      <label for="phone">Phone</label>
+      <input type="text" id="phone" name="phone" required>
+    </div>
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" required>
+    </div>
+    <div class="form-group">
+      <label for="position">Position</label>
+      <input type="text" id="position" name="position" required>
+    </div>
+    <div class="form-group">
+      <label for="salary">Salary</label>
+      <input type="number" id="salary" name="salary" step="0.01" required>
+    </div>
+    <div class="form-actions">
+      <button type="submit" class="btn btn-success"><i data-lucide="check" size="16"></i> Save Staff</button>
+      <a href="{% url 'allstaff' %}" class="btn btn-secondary">Cancel</a>
+    </div>
+  </form>
 </div>
-
 {% endblock %}

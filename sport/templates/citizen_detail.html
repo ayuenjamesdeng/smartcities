@@ -1,101 +1,21 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Citizen Details</title>
-
-    <style>
-
-        body{
-            font-family:Arial, sans-serif;
-            background:#f4f4f4;
-        }
-
-        .container{
-            width:500px;
-            margin:50px auto;
-            background:white;
-            padding:20px;
-            border-radius:10px;
-            box-shadow:0 0 10px gray;
-        }
-
-        h1{
-            text-align:center;
-            color:darkblue;
-        }
-
-        table{
-            width:100%;
-            border-collapse:collapse;
-        }
-
-        td{
-            padding:12px;
-            border-bottom:1px solid #ddd;
-        }
-
-        .label{
-            font-weight:bold;
-            width:40%;
-        }
-
-        a{
-            text-decoration:none;
-            color:white;
-            background:darkblue;
-            padding:10px 20px;
-            border-radius:5px;
-        }
-
-        .button{
-            text-align:center;
-            margin-top:20px;
-        }
-
-    </style>
-
-</head>
-
-<body>
-
-<div class="container">
-
-<h1>Citizen Details</h1>
-
-<table>
-
-<tr>
-    <td class="label">Citizen ID</td>
-    <td>{{ citizen.id }}</td>
-</tr>
-
-<tr>
-    <td class="label">Full Name</td>
-    <td>{{ citizen.full_name }}</td>
-</tr>
-
-<tr>
-    <td class="label">Phone Number</td>
-    <td>{{ citizen.phone }}</td>
-</tr>
-
-<tr>
-    <td class="label">Email</td>
-    <td>{{ citizen.email }}</td>
-</tr>
-
-<tr>
-    <td class="label">Address</td>
-    <td>{{ citizen.address }}</td>
-</tr>
-
-</table>
-
-<div class="button">
-    <a href="/citizens/">Back to Citizens</a>
+{% extends "dashboard_base.html" %}
+{% block title %}Citizen Detail — Smart City Platform{% endblock %}
+{% block page_title %}Citizen Detail{% endblock %}
+{% block citizens_active %}active{% endblock %}
+{% block content %}
+<div class="card" data-aos="fade-up">
+  <div class="card-header">
+    <h2>Citizen #{{ citizen.id }}</h2>
+    <a href="{% url 'allcitizens' %}" class="btn btn-secondary"><i data-lucide="arrow-left" size="16"></i> Back to Citizens</a>
+  </div>
+  <div class="detail-grid">
+    <div class="detail-field"><div class="label">Citizen ID</div><div class="value">{{ citizen.id }}</div></div>
+    <div class="detail-field"><div class="label">Full Name</div><div class="value">{{ citizen.full_name }}</div></div>
+    <div class="detail-field"><div class="label">Gender</div><div class="value">{{ citizen.gender }}</div></div>
+    <div class="detail-field"><div class="label">Phone</div><div class="value">{{ citizen.phone }}</div></div>
+    <div class="detail-field"><div class="label">Email</div><div class="value">{{ citizen.email }}</div></div>
+    <div class="detail-field"><div class="label">Address</div><div class="value">{{ citizen.address }}</div></div>
+    <div class="detail-field"><div class="label">National ID</div><div class="value">{{ citizen.national_id }}</div></div>
+  </div>
 </div>
-
-</div>
-
-</body>
-</html>
+{% endblock %}

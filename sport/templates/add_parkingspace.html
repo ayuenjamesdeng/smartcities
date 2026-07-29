@@ -1,50 +1,42 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Add Parking Space</title>
-</head>
-<body>
+{% extends "dashboard_base.html" %}
+{% block title %}Add Parking Space — Smart City Platform{% endblock %}
+{% block page_title %}Add Parking Space{% endblock %}
 
-    <h1>Add Parking Space</h1>
-
-    <form method="POST">
-        {% csrf_token %}
-
-        <p>
-            <label>Parking Space Number:</label><br>
-            <input type="text" name="space_number" required>
-        </p>
-
-        <p>
-            <label>Location:</label><br>
-            <input type="text" name="location" required>
-        </p>
-
-        <p>
-            <label>Space Type:</label><br>
-            <select name="space_type">
-                <option value="Car">Car</option>
-                <option value="Motorcycle">Motorcycle</option>
-                <option value="Bus">Bus</option>
-                <option value="Truck">Truck</option>
-            </select>
-        </p>
-
-        <p>
-            <label>Status:</label><br>
-            <select name="status">
-                <option value="Available">Available</option>
-                <option value="Occupied">Occupied</option>
-                <option value="Reserved">Reserved</option>
-            </select>
-        </p>
-
-        <button type="submit">Save Parking Space</button>
-        <button type="reset">Clear</button>
-    </form>
-
-    <br>
-    <a href="{% url 'all_parking_spaces' %}">Back to All Parking Spaces</a>
-
-</body>
-</html>
+{% block content %}
+<div class="card form-card" data-aos="fade-up">
+  <div class="card-header">
+    <h2>New Parking Space</h2>
+  </div>
+  <form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="id_space_number">Space Number</label>
+      <input type="text" id="id_space_number" name="space_number" required>
+    </div>
+    <div class="form-group">
+      <label for="id_floor">Floor</label>
+      <input type="number" id="id_floor" name="floor" required>
+    </div>
+    <div class="form-group">
+      <label for="id_section">Section</label>
+      <input type="text" id="id_section" name="section" required>
+    </div>
+    <div class="form-group">
+      <label for="id_status">Status</label>
+      <select id="id_status" name="status">
+        <option value="Available">Available</option>
+        <option value="Occupied">Occupied</option>
+        <option value="Reserved">Reserved</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="id_parking_fee">Parking Fee ($)</label>
+      <input type="number" id="id_parking_fee" name="parking_fee" step="0.01" required>
+    </div>
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary"><i data-lucide="save" size="16"></i> Save</button>
+      <a href="/parkingspaces/" class="btn btn-secondary"><i data-lucide="x" size="16"></i> Cancel</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

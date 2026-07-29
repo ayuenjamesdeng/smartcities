@@ -1,64 +1,40 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>All Vehicles</title>
-    <style>
-        table{
-            width:100%;
-            border-collapse:collapse;
-        }
-        th, td{
-            border:1px solid black;
-            padding:8px;
-            text-align:center;
-        }
-        th{
-            background-color:#f2f2f2;
-        }
-    </style>
-</head>
-<body>
-
-<h2>All Vehicles</h2>
-
-<a href="{% url 'add_vehicle' %}">Add New Vehicle</a>
-<br><br>
-
-<table>
-    <tr>
+{% extends "dashboard_base.html" %}
+{% block title %}All Vehicles — Smart City Platform{% endblock %}
+{% block page_title %}Vehicles{% endblock %}
+{% block vehicles_active %}active{% endblock %}
+{% block content %}
+<div class="card" data-aos="fade-up">
+  <div class="card-header">
+    <h2>Registered Vehicles</h2>
+    <a href="{% url 'add_vehicle' %}" class="btn btn-primary"><i data-lucide="plus" size="16"></i> Add Vehicle</a>
+  </div>
+  <table>
+    <thead>
+      <tr>
         <th>ID</th>
         <th>Plate Number</th>
         <th>Vehicle Type</th>
+        <th>Brand</th>
+        <th>Color</th>
+        <th>Manufacture Year</th>
         <th>Owner</th>
-        <th>Parking Space</th>
-        <th>Entry Time</th>
-        <th>Actions</th>
-    </tr>
-
-    {% for vehicle in vehicles %}
-    <tr>
-        <td>{{ vehicle.id }}</td>
-        <td>{{ vehicle.plate_number }}</td>
-        <td>{{ vehicle.vehicle_type }}</td>
-        <td>{{ vehicle.owner.full_name }}</td>
-        <td>{{ vehicle.parking_space.space_number }}</td>
-        <td>{{ vehicle.entry_time }}</td>
-        <td>
-            <a href="{% url 'vehicle_details' vehicle.id %}">Details</a> |
-            <a href="{% url 'update_vehicle' vehicle.id %}">Update</a> |
-            <a href="{% url 'delete_vehicle' vehicle.id %}">Delete</a>
-        </td>
-    </tr>
-    {% empty %}
-    <tr>
-        <td colspan="7">No vehicles found.</td>
-    </tr>
-    {% endfor %}
-
-</table>
-
-<br>
-<a href="{% url 'home' %}">Back to Home</a>
-
-</body>
-</html>
+      </tr>
+    </thead>
+    <tbody>
+      {% for v in allvehicles %}
+      <tr>
+        <td>{{ v.id }}</td>
+        <td><a href="{% url 'vehicle_detail' v.id %}">{{ v.plate_number }}</a></td>
+        <td>{{ v.vehicle_type }}</td>
+        <td>{{ v.brand }}</td>
+        <td>{{ v.color }}</td>
+        <td>{{ v.manufacture_year }}</td>
+        <td>{{ v.citizen.full_name }}</td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="7"><div class="empty-state"><i data-lucide="car" size="32"></i><p>No vehicles registered yet.</p></div></td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

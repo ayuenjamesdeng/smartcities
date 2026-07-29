@@ -1,42 +1,31 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Public Details</title>
-</head>
-<body>
+{% extends "dashboard_base.html" %}
 
-    <h1>Public Details</h1>
+{% block transport_active %}active{% endblock %}
 
-    <table border="1" cellpadding="8">
-        <tr>
-            <th>ID</th>
-            <td>{{ public.id }}</td>
-        </tr>
-        <tr>
-            <th>Full Name</th>
-            <td>{{ public.full_name }}</td>
-        </tr>
-        <tr>
-            <th>Email</th>
-            <td>{{ public.email }}</td>
-        </tr>
-        <tr>
-            <th>Phone Number</th>
-            <td>{{ public.phone_number }}</td>
-        </tr>
-        <tr>
-            <th>Address</th>
-            <td>{{ public.address }}</td>
-        </tr>
-        <tr>
-            <th>Date Registered</th>
-            <td>{{ public.created_at }}</td>
-        </tr>
-    </table>
+{% block page_title %}Public Transport Details{% endblock %}
 
-    <br>
-
-    <a href="{% url 'all_public' %}">Back to Public List</a>
-
-</body>
-</html>
+{% block content %}
+<div class="card" data-aos="fade-up">
+  <div class="card-header">
+    <h2>Public Transport #{{ public_transport.id }}</h2>
+    <a href="{% url 'allpublictransport' %}" class="btn btn-secondary"><i data-lucide="arrow-left" size="16"></i> Back to List</a>
+  </div>
+  <div class="detail-grid">
+    <div class="detail-field"><div class="label">ID</div><div class="value">{{ public_transport.id }}</div></div>
+    <div class="detail-field"><div class="label">Vehicle</div><div class="value">{{ public_transport.vehicle.plate_number }}</div></div>
+    <div class="detail-field"><div class="label">Route</div><div class="value">{{ public_transport.route.route_name }}</div></div>
+    <div class="detail-field"><div class="label">Driver Name</div><div class="value">{{ public_transport.driver_name }}</div></div>
+    <div class="detail-field"><div class="label">Capacity</div><div class="value">{{ public_transport.capacity }}</div></div>
+    <div class="detail-field"><div class="label">Fare</div><div class="value">{{ public_transport.fare }}</div></div>
+    <div class="detail-field">
+      <div class="label">Status</div>
+      <div class="value">
+        {% if public_transport.status == "Active" %}<span class="badge badge-green">{{ public_transport.status }}</span>
+        {% elif public_transport.status == "Inactive" %}<span class="badge badge-red">{{ public_transport.status }}</span>
+        {% else %}<span class="badge badge-yellow">{{ public_transport.status }}</span>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

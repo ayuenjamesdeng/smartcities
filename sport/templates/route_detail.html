@@ -1,102 +1,22 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Route Details</title>
+{% extends "dashboard_base.html" %}
 
-    <style>
+{% block routes_active %}active{% endblock %}
 
-        body{
-            font-family:Arial, sans-serif;
-            background:#f2f2f2;
-        }
+{% block page_title %}Route Details{% endblock %}
 
-        .container{
-            width:500px;
-            margin:50px auto;
-            background:white;
-            padding:20px;
-            border-radius:10px;
-            box-shadow:0px 0px 10px gray;
-        }
-
-        h1{
-            text-align:center;
-            color:darkblue;
-        }
-
-        table{
-            width:100%;
-            border-collapse:collapse;
-        }
-
-        td{
-            padding:12px;
-            border-bottom:1px solid #ddd;
-        }
-
-        .title{
-            font-weight:bold;
-            width:40%;
-        }
-
-        .btn{
-            display:block;
-            width:150px;
-            margin:20px auto;
-            text-align:center;
-            background:darkblue;
-            color:white;
-            text-decoration:none;
-            padding:10px;
-            border-radius:5px;
-        }
-
-        .btn:hover{
-            background:green;
-        }
-
-    </style>
-
-</head>
-
-<body>
-
-<div class="container">
-
-<h1>Transport Route Details</h1>
-
-<table>
-
-<tr>
-    <td class="title">Route ID</td>
-    <td>{{ route.id }}</td>
-</tr>
-
-<tr>
-    <td class="title">Route Name</td>
-    <td>{{ route.route_name }}</td>
-</tr>
-
-<tr>
-    <td class="title">Start Point</td>
-    <td>{{ route.start_point }}</td>
-</tr>
-
-<tr>
-    <td class="title">End Point</td>
-    <td>{{ route.end_point }}</td>
-</tr>
-
-<tr>
-    <td class="title">Distance (km)</td>
-    <td>{{ route.distance }}</td>
-</tr>
-
-</table>
-
-<a href="/routes/" class="btn">Back to Routes</a>
-
+{% block content %}
+<div class="card" data-aos="fade-up">
+  <div class="card-header">
+    <h2>Route #{{ route.id }}</h2>
+    <a href="{% url 'allroutes' %}" class="btn btn-secondary"><i data-lucide="arrow-left" size="16"></i> Back to Routes</a>
+  </div>
+  <div class="detail-grid">
+    <div class="detail-field"><div class="label">ID</div><div class="value">{{ route.id }}</div></div>
+    <div class="detail-field"><div class="label">Route Name</div><div class="value">{{ route.route_name }}</div></div>
+    <div class="detail-field"><div class="label">Start Point</div><div class="value">{{ route.start_point }}</div></div>
+    <div class="detail-field"><div class="label">End Point</div><div class="value">{{ route.end_point }}</div></div>
+    <div class="detail-field"><div class="label">Distance (km)</div><div class="value">{{ route.distance }}</div></div>
+    <div class="detail-field"><div class="label">Estimated Time</div><div class="value">{{ route.estimated_time }}</div></div>
+  </div>
 </div>
-
-</body>
-</html>
+{% endblock %}

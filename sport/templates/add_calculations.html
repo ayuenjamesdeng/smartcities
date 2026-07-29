@@ -1,85 +1,40 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Add Calculation</title>
-    <style>
-        body{
-            font-family: Arial, sans-serif;
-            background:#f2f2f2;
-        }
-        .container{
-            width:50%;
-            margin:30px auto;
-            background:white;
-            padding:20px;
-            border-radius:8px;
-            box-shadow:0 0 10px gray;
-        }
-        h2{
-            text-align:center;
-            color:#333;
-        }
-        label{
-            font-weight:bold;
-        }
-        input, select{
-            width:100%;
-            padding:10px;
-            margin-top:5px;
-            margin-bottom:15px;
-            border:1px solid #ccc;
-            border-radius:5px;
-        }
-        button{
-            width:100%;
-            padding:10px;
-            background:green;
-            color:white;
-            border:none;
-            border-radius:5px;
-            cursor:pointer;
-        }
-        button:hover{
-            background:darkgreen;
-        }
-        a{
-            text-decoration:none;
-            color:blue;
-        }
-    </style>
-</head>
-<body>
+{% extends "dashboard_base.html" %}
+{% block title %}Add Calculation — Smart City Platform{% endblock %}
+{% block page_title %}Add Calculation{% endblock %}
+{% block calculations_active %}active{% endblock %}
 
-<div class="container">
-    <h2>Add Calculation</h2>
-
-    <form method="POST">
-        {% csrf_token %}
-
-        <label>Vehicle</label>
-        <select name="vehicle">
-            {% for vehicle in vehicles %}
-            <option value="{{ vehicle.id }}">
-                {{ vehicle.plate_number }}
-            </option>
-            {% endfor %}
-        </select>
-
-        <label>Parking Hours</label>
-        <input type="number" name="hours" required>
-
-        <label>Rate Per Hour</label>
-        <input type="number" name="rate" step="0.01" required>
-
-        <label>Total Amount</label>
-        <input type="number" name="total_amount" step="0.01" required>
-
-        <button type="submit">Save Calculation</button>
-    </form>
-
-    <br>
-    <a href="{% url 'all_calculations' %}">← Back to All Calculations</a>
+{% block content %}
+<div class="card form-card" data-aos="fade-up">
+  <div class="card-header">
+    <h2>New Calculation</h2>
+    <a href="{% url 'allcalculations' %}" class="btn btn-secondary"><i data-lucide="arrow-left" size="16"></i> Back</a>
+  </div>
+  <form method="post" action="{% url 'add_calculation' %}">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="total_vehicles">Total Vehicles</label>
+      <input type="number" id="total_vehicles" name="total_vehicles" required>
+    </div>
+    <div class="form-group">
+      <label for="parked_vehicles">Parked Vehicles</label>
+      <input type="number" id="parked_vehicles" name="parked_vehicles" required>
+    </div>
+    <div class="form-group">
+      <label for="exited_vehicles">Exited Vehicles</label>
+      <input type="number" id="exited_vehicles" name="exited_vehicles" required>
+    </div>
+    <div class="form-group">
+      <label for="total_hours">Total Hours</label>
+      <input type="number" id="total_hours" name="total_hours" step="0.1" required>
+    </div>
+    <div class="form-group">
+      <label for="total_amount">Total Amount ($)</label>
+      <input type="number" id="total_amount" name="total_amount" step="0.01" required>
+    </div>
+    <div class="form-actions">
+      <button type="submit" class="btn btn-success"><i data-lucide="check" size="16"></i> Save Calculation</button>
+      <a href="{% url 'allcalculations' %}" class="btn btn-secondary">Cancel</a>
+    </div>
+  </form>
 </div>
-
-</body>
-</html>
+{% endblock %}

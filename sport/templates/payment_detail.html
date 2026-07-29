@@ -1,57 +1,35 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Payment Details</title>
-</head>
-<body>
+{% extends "dashboard_base.html" %}
+{% block title %}Payment #{{ payment.id }} — Smart City Platform{% endblock %}
+{% block page_title %}Payment #{{ payment.id }}{% endblock %}
+{% block payments_active %}active{% endblock %}
 
-    <h1>Payment Details</h1>
-
-    <table border="1" cellpadding="10">
-        <tr>
-            <th>Payment ID</th>
-            <td>{{ payment.id }}</td>
-        </tr>
-
-        <tr>
-            <th>Citizen</th>
-            <td>{{ payment.parking_record.citizen.full_name }}</td>
-        </tr>
-
-        <tr>
-            <th>Vehicle Number</th>
-            <td>{{ payment.parking_record.vehicle.plate_number }}</td>
-        </tr>
-
-        <tr>
-            <th>Parking Space</th>
-            <td>{{ payment.parking_record.parking_space.space_number }}</td>
-        </tr>
-
-        <tr>
-            <th>Amount Paid</th>
-            <td>{{ payment.amount }}</td>
-        </tr>
-
-        <tr>
-            <th>Payment Method</th>
-            <td>{{ payment.payment_method }}</td>
-        </tr>
-
-        <tr>
-            <th>Payment Date</th>
-            <td>{{ payment.payment_date }}</td>
-        </tr>
-
-        <tr>
-            <th>Status</th>
-            <td>{{ payment.status }}</td>
-        </tr>
-    </table>
-
-    <br>
-
-    <a href="{% url 'all_payments' %}">Back to All Payments</a>
-
-</body>
-</html>
+{% block content %}
+<div class="card" data-aos="fade-up">
+  <div class="card-header">
+    <h2>Payment Details</h2>
+    <a href="{% url 'allpayments' %}" class="btn btn-secondary"><i data-lucide="arrow-left" size="16"></i> Back to Payments</a>
+  </div>
+  <div class="detail-grid">
+    <div class="detail-field">
+      <div class="label">ID</div>
+      <div class="value">{{ payment.id }}</div>
+    </div>
+    <div class="detail-field">
+      <div class="label">Amount ($)</div>
+      <div class="value">{{ payment.amount }}</div>
+    </div>
+    <div class="detail-field">
+      <div class="label">Payment Method</div>
+      <div class="value">{{ payment.payment_method }}</div>
+    </div>
+    <div class="detail-field">
+      <div class="label">Payment Date</div>
+      <div class="value">{{ payment.payment_date }}</div>
+    </div>
+    <div class="detail-field">
+      <div class="label">Payment Status</div>
+      <div class="value"><span class="badge {% if payment.payment_status == 'Completed' %}badge-green{% elif payment.payment_status == 'Failed' %}badge-red{% elif payment.payment_status == 'Pending' %}badge-yellow{% else %}badge-gray{% endif %}">{{ payment.payment_status }}</span></div>
+    </div>
+  </div>
+</div>
+{% endblock %}

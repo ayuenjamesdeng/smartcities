@@ -1,62 +1,37 @@
-{% extends 'base.html' %}
-
-{% block title %}
-All Parking Spaces
-{% endblock %}
+{% extends "dashboard_base.html" %}
+{% block title %}Parking Spaces — Smart City Platform{% endblock %}
+{% block page_title %}Parking Spaces{% endblock %}
 
 {% block content %}
-
-<div class="container mt-4">
-    <h2 class="text-center mb-4">All Parking Spaces</h2>
-
-    <a href="{% url 'add_parkingspace' %}" class="btn btn-primary mb-3">
-        Add Parking Space
-    </a>
-
-    <table class="table table-bordered table-striped">
-        <thead class="table-dark">
-            <tr>
-                <th>ID</th>
-                <th>Space Number</th>
-                <th>Location</th>
-                <th>Status</th>
-                <th>Capacity</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-
-        <tbody>
-            {% for space in parkingspaces %}
-            <tr>
-                <td>{{ space.id }}</td>
-                <td>{{ space.space_number }}</td>
-                <td>{{ space.location }}</td>
-                <td>{{ space.status }}</td>
-                <td>{{ space.capacity }}</td>
-                <td>
-                    <a href="{% url 'parkingspace_details' space.id %}" class="btn btn-info btn-sm">
-                        Details
-                    </a>
-
-                    <a href="{% url 'update_parkingspace' space.id %}" class="btn btn-warning btn-sm">
-                        Edit
-                    </a>
-
-                    <a href="{% url 'delete_parkingspace' space.id %}" class="btn btn-danger btn-sm">
-                        Delete
-                    </a>
-                </td>
-            </tr>
-            {% empty %}
-            <tr>
-                <td colspan="6" class="text-center">
-                    No parking spaces available.
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-
+<div class="card" data-aos="fade-up">
+  <div class="card-header">
+    <h2>All Parking Spaces</h2>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Space Number</th>
+        <th>Floor</th>
+        <th>Section</th>
+        <th>Status</th>
+        <th>Fee</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for s in parkingspaces %}
+      <tr>
+        <td>{{ s.id }}</td>
+        <td>{{ s.space_number }}</td>
+        <td>{{ s.floor }}</td>
+        <td>{{ s.section }}</td>
+        <td><span class="badge {% if s.status == 'Available' %}badge-green{% elif s.status == 'Occupied' %}badge-red{% else %}badge-yellow{% endif %}">{{ s.status }}</span></td>
+        <td>${{ s.parking_fee }}</td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="6"><div class="empty-state"><i data-lucide="parking-circle" size="32"></i><p>No parking spaces registered yet.</p></div></td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
 </div>
-
 {% endblock %}

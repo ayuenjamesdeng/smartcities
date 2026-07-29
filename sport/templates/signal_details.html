@@ -1,22 +1,30 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Signal Details</title>
-</head>
-<body>
-
-    <h1>Signal Details</h1>
-
-    <p><strong>ID:</strong> {{ signal.id }}</p>
-    <p><strong>Signal Name:</strong> {{ signal.signal_name }}</p>
-    <p><strong>Location:</strong> {{ signal.location }}</p>
-    <p><strong>Status:</strong> {{ signal.status }}</p>
-    <p><strong>Duration (Seconds):</strong> {{ signal.duration }}</p>
-    <p><strong>Date Created:</strong> {{ signal.created_at }}</p>
-
-    <br>
-
-    <a href="{% url 'all_signals' %}">Back to All Signals</a>
-
-</body>
-</html>
+{% extends "dashboard_base.html" %}
+{% block title %}Signal Detail — Smart City Platform{% endblock %}
+{% block page_title %}Signal Detail{% endblock %}
+{% block signals_active %}active{% endblock %}
+{% block content %}
+<div class="card" data-aos="fade-up">
+  <div class="card-header">
+    <h2>Signal #{{ signal.id }}</h2>
+    <a href="{% url 'allsignals' %}" class="btn btn-secondary"><i data-lucide="arrow-left" size="16"></i> Back to Signals</a>
+  </div>
+  <div class="detail-grid">
+    <div class="detail-field"><div class="label">ID</div><div class="value">{{ signal.id }}</div></div>
+    <div class="detail-field"><div class="label">Location</div><div class="value">{{ signal.location }}</div></div>
+    <div class="detail-field">
+      <div class="label">Status</div>
+      <div class="value">
+        {% if signal.signal_status == "Active" %}
+          <span class="badge badge-green">Active</span>
+        {% elif signal.signal_status == "Maintenance" %}
+          <span class="badge badge-yellow">Maintenance</span>
+        {% else %}
+          <span class="badge badge-red">{{ signal.signal_status }}</span>
+        {% endif %}
+      </div>
+    </div>
+    <div class="detail-field"><div class="label">Installation Date</div><div class="value">{{ signal.installation_date }}</div></div>
+    <div class="detail-field"><div class="label">Last Maintenance</div><div class="value">{{ signal.last_maintenance }}</div></div>
+  </div>
+</div>
+{% endblock %}

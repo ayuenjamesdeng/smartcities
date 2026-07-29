@@ -1,85 +1,43 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Add Calculation</title>
-    <style>
-        body{
-            font-family: Arial, sans-serif;
-            background:#f2f2f2;
-        }
-        .container{
-            width:50%;
-            margin:30px auto;
-            background:white;
-            padding:20px;
-            border-radius:8px;
-            box-shadow:0 0 10px gray;
-        }
-        h2{
-            text-align:center;
-            color:#333;
-        }
-        label{
-            font-weight:bold;
-        }
-        input, select{
-            width:100%;
-            padding:10px;
-            margin-top:5px;
-            margin-bottom:15px;
-            border:1px solid #ccc;
-            border-radius:5px;
-        }
-        button{
-            width:100%;
-            padding:10px;
-            background:green;
-            color:white;
-            border:none;
-            border-radius:5px;
-            cursor:pointer;
-        }
-        button:hover{
-            background:darkgreen;
-        }
-        a{
-            text-decoration:none;
-            color:blue;
-        }
-    </style>
-</head>
-<body>
+{% extends "dashboard_base.html" %}
+{% block title %}Calculation #{{ calculation.id }} — Smart City Platform{% endblock %}
+{% block page_title %}Calculation #{{ calculation.id }}{% endblock %}
+{% block calculations_active %}active{% endblock %}
 
-<div class="container">
-    <h2>Add Calculation</h2>
-
-    <form method="POST">
-        {% csrf_token %}
-
-        <label>Vehicle</label>
-        <select name="vehicle">
-            {% for vehicle in vehicles %}
-            <option value="{{ vehicle.id }}">
-                {{ vehicle.plate_number }}
-            </option>
-            {% endfor %}
-        </select>
-
-        <label>Parking Hours</label>
-        <input type="number" name="hours" required>
-
-        <label>Rate Per Hour</label>
-        <input type="number" name="rate" step="0.01" required>
-
-        <label>Total Amount</label>
-        <input type="number" name="total_amount" step="0.01" required>
-
-        <button type="submit">Save Calculation</button>
-    </form>
-
-    <br>
-    <a href="{% url 'all_calculations' %}">← Back to All Calculations</a>
+{% block content %}
+<div class="card" data-aos="fade-up">
+  <div class="card-header">
+    <h2>Calculation Details</h2>
+    <a href="{% url 'allcalculations' %}" class="btn btn-secondary"><i data-lucide="arrow-left" size="16"></i> Back to Calculations</a>
+  </div>
+  <div class="detail-grid">
+    <div class="detail-field">
+      <div class="label">ID</div>
+      <div class="value">{{ calculation.id }}</div>
+    </div>
+    <div class="detail-field">
+      <div class="label">Total Vehicles</div>
+      <div class="value">{{ calculation.total_vehicles }}</div>
+    </div>
+    <div class="detail-field">
+      <div class="label">Parked Vehicles</div>
+      <div class="value">{{ calculation.parked_vehicles }}</div>
+    </div>
+    <div class="detail-field">
+      <div class="label">Exited Vehicles</div>
+      <div class="value">{{ calculation.exited_vehicles }}</div>
+    </div>
+    <div class="detail-field">
+      <div class="label">Total Hours</div>
+      <div class="value">{{ calculation.total_hours }}</div>
+    </div>
+    <div class="detail-field">
+      <div class="label">Total Amount</div>
+      <div class="value">{{ calculation.total_amount }}</div>
+    </div>
+    <div class="detail-field">
+      <div class="label">Calculation Date</div>
+      <div class="value">{{ calculation.calculation_date }}</div>
+    </div>
+  </div>
 </div>
-
-</body>
-</html>
+{% endblock %}

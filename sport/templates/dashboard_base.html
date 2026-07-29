@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Dashboard — Smart City Platform{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #f1f5f9;
+      color: #0f172a;
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      width: 260px;
+      background: #0f172a;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 0; left: 0; bottom: 0;
+      z-index: 100;
+    }
+
+    .sidebar-brand {
+      padding: 24px 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 1.1rem;
+      letter-spacing: -0.03em;
+      text-decoration: none;
+      color: #fff;
+    }
+
+    .sidebar-brand .brand-icon {
+      width: 34px; height: 34px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .sidebar-nav { flex: 1; padding: 12px; overflow-y: auto; }
+
+    .sidebar-label {
+      padding: 16px 12px 6px;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.3);
+      font-weight: 600;
+    }
+
+    .sidebar-nav a {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: rgba(255,255,255,0.65);
+      text-decoration: none;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      margin-bottom: 2px;
+    }
+
+    .sidebar-nav a:hover { background: rgba(255,255,255,0.08); color: #fff; }
+    .sidebar-nav a.active { background: rgba(59,130,246,0.15); color: #60a5fa; }
+
+    .sidebar-footer {
+      padding: 12px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .sidebar-footer a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      transition: all 0.2s ease;
+    }
+
+    .sidebar-footer a:hover { background: rgba(255,255,255,0.06); color: #f87171; }
+
+    .main { flex: 1; margin-left: 260px; padding: 28px 32px; }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 28px;
+    }
+
+    .topbar h1 { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.02em; }
+
+    .topbar .user-badge {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #fff;
+      padding: 8px 16px 8px 12px;
+      border-radius: 100px;
+      border: 1px solid #e2e8f0;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+
+    .user-avatar {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      border: 1px solid #e2e8f0;
+      padding: 24px;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .card-header h2 { font-size: 1.15rem; font-weight: 700; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 18px;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #3b82f6, #2563eb);
+      color: #fff;
+      box-shadow: 0 2px 8px rgba(59,130,246,0.3);
+    }
+
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(59,130,246,0.4); }
+
+    .btn-secondary {
+      background: #f1f5f9;
+      color: #475569;
+      border: 1px solid #e2e8f0;
+    }
+
+    .btn-secondary:hover { background: #e2e8f0; }
+
+    .btn-success {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: #fff;
+    }
+
+    .btn-success:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(16,185,129,0.3); }
+
+    .btn-danger {
+      background: #fef2f2;
+      color: #dc2626;
+      border: 1px solid #fecaca;
+    }
+
+    .btn-danger:hover { background: #fee2e2; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    table th {
+      text-align: left;
+      padding: 12px 14px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #64748b;
+      border-bottom: 2px solid #e2e8f0;
+    }
+
+    table td {
+      padding: 12px 14px;
+      font-size: 0.9rem;
+      border-bottom: 1px solid #f1f5f9;
+      color: #334155;
+    }
+
+    table tbody tr:hover { background: #f8fafc; }
+
+    table td .actions { display: flex; gap: 6px; }
+
+    .empty-state {
+      text-align: center;
+      padding: 48px 20px;
+      color: #94a3b8;
+    }
+
+    .empty-state i { margin-bottom: 12px; opacity: 0.5; }
+    .empty-state p { font-size: 0.9rem; }
+
+    .detail-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 16px;
+    }
+
+    .detail-field { padding: 14px 0; border-bottom: 1px solid #f1f5f9; }
+    .detail-field:last-child { border-bottom: none; }
+
+    .detail-field .label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #64748b;
+      margin-bottom: 4px;
+    }
+
+    .detail-field .value {
+      font-size: 1rem;
+      color: #0f172a;
+    }
+
+    .form-card {
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .form-group { margin-bottom: 20px; }
+
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #334155;
+      margin-bottom: 6px;
+    }
+
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1px solid #d1d5db;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      box-sizing: border-box;
+      background: #fff;
+    }
+
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59,130,246,0.1);
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .badge-green { background: #f0fdf4; color: #16a34a; }
+    .badge-red { background: #fef2f2; color: #dc2626; }
+    .badge-yellow { background: #fefce8; color: #ca8a04; }
+    .badge-blue { background: #eff6ff; color: #2563eb; }
+    .badge-gray { background: #f1f5f9; color: #64748b; }
+
+    @media (max-width: 768px) {
+      .sidebar { width: 200px; }
+      .main { margin-left: 200px; padding: 20px 16px; }
+      table { font-size: 0.8rem; }
+      table th, table td { padding: 8px 10px; }
+    }
+    {% block extra_css %}{% endblock %}
+  </style>
+</head>
+<body>
+  <aside class="sidebar">
+    <a href="/dashboard/" class="sidebar-brand">
+      <span class="brand-icon"><i data-lucide="building-2" size="18"></i></span>
+      SmartCity
+    </a>
+    <nav class="sidebar-nav">
+      <div class="sidebar-label">Main</div>
+      <a href="/dashboard/" class="{% block overview_active %}{% endblock %}"><i data-lucide="layout-dashboard" size="18"></i> Overview</a>
+
+      <div class="sidebar-label">Management</div>
+      <a href="/citizens/" class="{% block citizens_active %}{% endblock %}"><i data-lucide="users" size="18"></i> Citizens</a>
+      <a href="/vehicles/" class="{% block vehicles_active %}{% endblock %}"><i data-lucide="car" size="18"></i> Vehicles</a>
+      <a href="/signals/" class="{% block signals_active %}{% endblock %}"><i data-lucide="traffic-cone" size="18"></i> Traffic Signals</a>
+      <a href="/routes/" class="{% block routes_active %}{% endblock %}"><i data-lucide="bus" size="18"></i> Transport Routes</a>
+      <a href="/transport/" class="{% block transport_active %}{% endblock %}"><i data-lucide="train" size="18"></i> Public Transport</a>
+      <a href="/payments/" class="{% block payments_active %}{% endblock %}"><i data-lucide="credit-card" size="18"></i> Payments</a>
+      <a href="/staff/" class="{% block staff_active %}{% endblock %}"><i data-lucide="briefcase" size="18"></i> Staff</a>
+      <a href="/calculations/" class="{% block calculations_active %}{% endblock %}"><i data-lucide="bar-chart-3" size="18"></i> Calculations</a>
+    </nav>
+    <div class="sidebar-footer">
+      <a href="/logout/"><i data-lucide="log-out" size="18"></i> Sign Out</a>
+    </div>
+  </aside>
+
+  <div class="main">
+    <div class="topbar" data-aos="fade-down">
+      <h1>{% block page_title %}Dashboard{% endblock %}</h1>
+      {% block topbar_right %}
+      <div class="user-badge">
+        <span class="user-avatar">{{ request.user|make_list|first|upper }}</span>
+        {{ request.user.username }}
+      </div>
+      {% endblock %}
+    </div>
+
+    {% block content %}{% endblock %}
+  </div>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({ duration: 600, once: true, easing: 'ease-out-cubic' });
+    lucide.createIcons();
+  </script>
+</body>
+</html>

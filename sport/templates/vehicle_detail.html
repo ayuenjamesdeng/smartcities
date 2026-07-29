@@ -1,26 +1,21 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Vehicle Details</title>
-</head>
-<body>
-
-    <h1>Vehicle Details</h1>
-
-    <p><strong>Owner:</strong> {{ vehicle.owner.full_name }}</p>
-    <p><strong>Plate Number:</strong> {{ vehicle.plate_number }}</p>
-    <p><strong>Vehicle Type:</strong> {{ vehicle.vehicle_type }}</p>
-    <p><strong>Color:</strong> {{ vehicle.color }}</p>
-    <p><strong>Brand:</strong> {{ vehicle.brand }}</p>
-    <p><strong>Model:</strong> {{ vehicle.model }}</p>
-    <p><strong>Entry Time:</strong> {{ vehicle.entry_time }}</p>
-    <p><strong>Status:</strong> {{ vehicle.status }}</p>
-
-    <br>
-
-    <a href="{% url 'vehicle_list' %}">Back to Vehicle List</a>
-    <a href="{% url 'update_vehicle' vehicle.id %}">Edit</a>
-    <a href="{% url 'delete_vehicle' vehicle.id %}">Delete</a>
-
-</body>
-</html>
+{% extends "dashboard_base.html" %}
+{% block title %}Vehicle Detail — Smart City Platform{% endblock %}
+{% block page_title %}Vehicle Detail{% endblock %}
+{% block vehicles_active %}active{% endblock %}
+{% block content %}
+<div class="card" data-aos="fade-up">
+  <div class="card-header">
+    <h2>Vehicle #{{ vehicle.id }}</h2>
+    <a href="{% url 'allvehicles' %}" class="btn btn-secondary"><i data-lucide="arrow-left" size="16"></i> Back to Vehicles</a>
+  </div>
+  <div class="detail-grid">
+    <div class="detail-field"><div class="label">ID</div><div class="value">{{ vehicle.id }}</div></div>
+    <div class="detail-field"><div class="label">Plate Number</div><div class="value">{{ vehicle.plate_number }}</div></div>
+    <div class="detail-field"><div class="label">Vehicle Type</div><div class="value">{{ vehicle.vehicle_type }}</div></div>
+    <div class="detail-field"><div class="label">Brand</div><div class="value">{{ vehicle.brand }}</div></div>
+    <div class="detail-field"><div class="label">Color</div><div class="value">{{ vehicle.color }}</div></div>
+    <div class="detail-field"><div class="label">Manufacture Year</div><div class="value">{{ vehicle.manufacture_year }}</div></div>
+    <div class="detail-field"><div class="label">Owner</div><div class="value">{{ vehicle.citizen.full_name }}</div></div>
+  </div>
+</div>
+{% endblock %}

@@ -1,44 +1,47 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Add Payment</title>
-</head>
-<body>
+{% extends "dashboard_base.html" %}
+{% block title %}Add Payment — Smart City Platform{% endblock %}
+{% block page_title %}Add Payment{% endblock %}
+{% block payments_active %}active{% endblock %}
 
-    <h1>Add Payment</h1>
-
-    <form method="POST">
-        {% csrf_token %}
-
-        <label>Parking Record:</label><br>
-        <select name="parking_record">
-            {% for record in parking_records %}
-                <option value="{{ record.id }}">{{ record.id }}</option>
-            {% endfor %}
-        </select>
-        <br><br>
-
-        <label>Amount:</label><br>
-        <input type="number" name="amount" step="0.01" required>
-        <br><br>
-
-        <label>Payment Method:</label><br>
-        <select name="payment_method">
-            <option value="Cash">Cash</option>
-            <option value="Mobile Money">Mobile Money</option>
-            <option value="Bank">Bank</option>
-            <option value="Card">Card</option>
-        </select>
-        <br><br>
-
-        <label>Payment Date:</label><br>
-        <input type="date" name="payment_date" required>
-        <br><br>
-
-        <button type="submit">Save Payment</button>
-        <a href="{% url 'all_payment' %}">Cancel</a>
-
-    </form>
-
-</body>
-</html>
+{% block content %}
+<div class="card form-card" data-aos="fade-up">
+  <div class="card-header">
+    <h2>New Payment</h2>
+    <a href="{% url 'allpayments' %}" class="btn btn-secondary"><i data-lucide="arrow-left" size="16"></i> Back</a>
+  </div>
+  <form method="post" action="{% url 'add_payment' %}">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="amount">Amount ($)</label>
+      <input type="number" id="amount" name="amount" step="0.01" required>
+    </div>
+    <div class="form-group">
+      <label for="payment_method">Payment Method</label>
+      <select id="payment_method" name="payment_method" required>
+        <option value="">Select method...</option>
+        <option value="Cash">Cash</option>
+        <option value="Mobile Money">Mobile Money</option>
+        <option value="Bank">Bank</option>
+        <option value="Card">Card</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="payment_date">Payment Date</label>
+      <input type="date" id="payment_date" name="payment_date" required>
+    </div>
+    <div class="form-group">
+      <label for="payment_status">Payment Status</label>
+      <select id="payment_status" name="payment_status" required>
+        <option value="">Select status...</option>
+        <option value="Pending">Pending</option>
+        <option value="Completed">Completed</option>
+        <option value="Failed">Failed</option>
+      </select>
+    </div>
+    <div class="form-actions">
+      <button type="submit" class="btn btn-success"><i data-lucide="check" size="16"></i> Save Payment</button>
+      <a href="{% url 'allpayments' %}" class="btn btn-secondary">Cancel</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

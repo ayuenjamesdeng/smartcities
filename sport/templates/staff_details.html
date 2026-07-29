@@ -1,57 +1,43 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Staff Details</title>
-</head>
-<body>
+{% extends "dashboard_base.html" %}
+{% block title %}Staff #{{ staff.id }} — Smart City Platform{% endblock %}
+{% block page_title %}{{ staff.first_name }} {{ staff.last_name }}{% endblock %}
+{% block staff_active %}active{% endblock %}
 
-    <h1>Staff Details</h1>
-
-    <table border="1" cellpadding="10">
-        <tr>
-            <th>Staff ID</th>
-            <td>{{ staff.id }}</td>
-        </tr>
-
-        <tr>
-            <th>Full Name</th>
-            <td>{{ staff.full_name }}</td>
-        </tr>
-
-        <tr>
-            <th>Gender</th>
-            <td>{{ staff.gender }}</td>
-        </tr>
-
-        <tr>
-            <th>Phone Number</th>
-            <td>{{ staff.phone }}</td>
-        </tr>
-
-        <tr>
-            <th>Email</th>
-            <td>{{ staff.email }}</td>
-        </tr>
-
-        <tr>
-            <th>Position</th>
-            <td>{{ staff.position }}</td>
-        </tr>
-
-        <tr>
-            <th>Salary</th>
-            <td>{{ staff.salary }}</td>
-        </tr>
-
-        <tr>
-            <th>Date Employed</th>
-            <td>{{ staff.date_employed }}</td>
-        </tr>
-    </table>
-
-    <br>
-
-    <a href="{% url 'all_staff' %}">Back to Staff List</a>
-
-</body>
-</html>
+{% block content %}
+<div class="card" data-aos="fade-up">
+  <div class="card-header">
+    <h2>Staff Details</h2>
+    <a href="{% url 'allstaff' %}" class="btn btn-secondary"><i data-lucide="arrow-left" size="16"></i> Back to Staff</a>
+  </div>
+  <div class="detail-grid">
+    <div class="detail-field">
+      <div class="label">ID</div>
+      <div class="value">{{ staff.id }}</div>
+    </div>
+    <div class="detail-field">
+      <div class="label">First Name</div>
+      <div class="value">{{ staff.first_name }}</div>
+    </div>
+    <div class="detail-field">
+      <div class="label">Last Name</div>
+      <div class="value">{{ staff.last_name }}</div>
+    </div>
+    <div class="detail-field">
+      <div class="label">Phone</div>
+      <div class="value">{{ staff.phone }}</div>
+    </div>
+    <div class="detail-field">
+      <div class="label">Email</div>
+      <div class="value">{{ staff.email }}</div>
+    </div>
+    <div class="detail-field">
+      <div class="label">Position</div>
+      <div class="value">{{ staff.position }}</div>
+    </div>
+    <div class="detail-field">
+      <div class="label">Salary</div>
+      <div class="value">{{ staff.salary }}</div>
+    </div>
+  </div>
+</div>
+{% endblock %}

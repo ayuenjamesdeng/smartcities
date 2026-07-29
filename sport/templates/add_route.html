@@ -1,39 +1,40 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Add Route</title>
-</head>
-<body>
+{% extends "dashboard_base.html" %}
 
-    <h1>Add New Route</h1>
+{% block routes_active %}active{% endblock %}
 
-    <form method="POST">
-        {% csrf_token %}
+{% block page_title %}Add Route{% endblock %}
 
-        <label>Route Name:</label><br>
-        <input type="text" name="route_name"><br><br>
-
-        <label>Start Location:</label><br>
-        <input type="text" name="start_location"><br><br>
-
-        <label>Destination:</label><br>
-        <input type="text" name="destination"><br><br>
-
-        <label>Distance (km):</label><br>
-        <input type="number" name="distance" step="0.1"><br><br>
-
-        <label>Status:</label><br>
-        <select name="status">
-            <option value="Open">Open</option>
-            <option value="Closed">Closed</option>
-            <option value="Under Maintenance">Under Maintenance</option>
-        </select><br><br>
-
-        <button type="submit">Save Route</button>
-    </form>
-
-    <br>
-    <a href="{% url 'all_routes' %}">Back to All Routes</a>
-
-</body>
-</html>
+{% block content %}
+<div class="card form-card" data-aos="fade-up">
+  <div class="card-header">
+    <h2>Add New Route</h2>
+  </div>
+  <form method="POST" action="{% url 'add_route' %}">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="route_name">Route Name</label>
+      <input type="text" id="route_name" name="route_name" required>
+    </div>
+    <div class="form-group">
+      <label for="start_point">Start Point</label>
+      <input type="text" id="start_point" name="start_point" required>
+    </div>
+    <div class="form-group">
+      <label for="end_point">End Point</label>
+      <input type="text" id="end_point" name="end_point" required>
+    </div>
+    <div class="form-group">
+      <label for="distance">Distance (km)</label>
+      <input type="number" id="distance" name="distance" step="0.1" required>
+    </div>
+    <div class="form-group">
+      <label for="estimated_time">Estimated Time</label>
+      <input type="text" id="estimated_time" name="estimated_time" placeholder="e.g. 25 mins" required>
+    </div>
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary"><i data-lucide="save" size="16"></i> Save Route</button>
+      <a href="{% url 'allroutes' %}" class="btn btn-secondary">Cancel</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

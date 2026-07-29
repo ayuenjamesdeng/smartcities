@@ -1,53 +1,46 @@
-{% extends 'base.html' %}
-
-{% block title %}All Calculations{% endblock %}
+{% extends "dashboard_base.html" %}
+{% block title %}Calculations — Smart City Platform{% endblock %}
+{% block page_title %}Calculations{% endblock %}
+{% block calculations_active %}active{% endblock %}
 
 {% block content %}
-
-<div class="container mt-4">
-    <h2 class="text-center mb-4">All Calculations</h2>
-
-    <a href="{% url 'add_calculation' %}" class="btn btn-primary mb-3">
-        Add Calculation
-    </a>
-
-    <table class="table table-bordered table-striped">
-        <thead class="table-dark">
-            <tr>
-                <th>ID</th>
-                <th>Vehicle</th>
-                <th>Parking Space</th>
-                <th>Hours Parked</th>
-                <th>Rate per Hour</th>
-                <th>Total Amount</th>
-                <th>Calculation Date</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-
-        <tbody>
-            {% for calculation in calculations %}
-            <tr>
-                <td>{{ calculation.id }}</td>
-                <td>{{ calculation.vehicle }}</td>
-                <td>{{ calculation.parking_space }}</td>
-                <td>{{ calculation.hours_parked }}</td>
-                <td>{{ calculation.rate_per_hour }}</td>
-                <td>{{ calculation.total_amount }}</td>
-                <td>{{ calculation.calculation_date }}</td>
-                <td>
-                    <a href="{% url 'calculation_detail' calculation.id %}" class="btn btn-info btn-sm">View</a>
-                    <a href="{% url 'update_calculation' calculation.id %}" class="btn btn-warning btn-sm">Edit</a>
-                    <a href="{% url 'delete_calculation' calculation.id %}" class="btn btn-danger btn-sm">Delete</a>
-                </td>
-            </tr>
-            {% empty %}
-            <tr>
-                <td colspan="8" class="text-center">No calculation records found.</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+<div class="card" data-aos="fade-up">
+  <div class="card-header">
+    <h2>All Calculations</h2>
+    <a href="{% url 'add_calculation' %}" class="btn btn-primary"><i data-lucide="plus" size="16"></i> Add New</a>
+  </div>
+  {% if allcalculations %}
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Total Vehicles</th>
+        <th>Parked</th>
+        <th>Exited</th>
+        <th>Total Hours</th>
+        <th>Total Amount ($)</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for calculation in allcalculations %}
+      <tr onclick="window.location='{% url 'calculation_detail' calculation.id %}'" style="cursor:pointer;">
+        <td>{{ calculation.id }}</td>
+        <td>{{ calculation.total_vehicles }}</td>
+        <td>{{ calculation.parked_vehicles }}</td>
+        <td>{{ calculation.exited_vehicles }}</td>
+        <td>{{ calculation.total_hours }}</td>
+        <td>{{ calculation.total_amount }}</td>
+        <td>{{ calculation.calculation_date }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <div class="empty-state">
+    <i data-lucide="bar-chart-3" size="40"></i>
+    <p>No calculations found.</p>
+  </div>
+  {% endif %}
 </div>
-
 {% endblock %}

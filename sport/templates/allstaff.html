@@ -1,47 +1,44 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>All Staff</title>
-</head>
-<body>
+{% extends "dashboard_base.html" %}
+{% block title %}Staff — Smart City Platform{% endblock %}
+{% block page_title %}Staff{% endblock %}
+{% block staff_active %}active{% endblock %}
 
-    <h1>All Staff</h1>
-
-    <a href="{% url 'add_staff' %}">Add New Staff</a>
-    <br><br>
-
-    <table border="1" cellpadding="8">
-        <tr>
-            <th>ID</th>
-            <th>Full Name</th>
-            <th>Position</th>
-            <th>Phone Number</th>
-            <th>Email</th>
-            <th>Actions</th>
-        </tr>
-
-        {% for staff in staffs %}
-        <tr>
-            <td>{{ staff.id }}</td>
-            <td>{{ staff.full_name }}</td>
-            <td>{{ staff.position }}</td>
-            <td>{{ staff.phone_number }}</td>
-            <td>{{ staff.email }}</td>
-            <td>
-                <a href="{% url 'staff_details' staff.id %}">Details</a> |
-                <a href="{% url 'update_staff' staff.id %}">Update</a> |
-                <a href="{% url 'delete_staff' staff.id %}">Delete</a>
-            </td>
-        </tr>
-        {% empty %}
-        <tr>
-            <td colspan="6">No staff records found.</td>
-        </tr>
-        {% endfor %}
-    </table>
-
-    <br>
-    <a href="{% url 'home' %}">Back to Home</a>
-
-</body>
-</html>
+{% block content %}
+<div class="card" data-aos="fade-up">
+  <div class="card-header">
+    <h2>All Staff</h2>
+    <a href="{% url 'add_staff' %}" class="btn btn-primary"><i data-lucide="plus" size="16"></i> Add New</a>
+  </div>
+  {% if allstaff %}
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Position</th>
+        <th>Phone</th>
+        <th>Email</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for staff in allstaff %}
+      <tr onclick="window.location='{% url 'staff_detail' staff.id %}'" style="cursor:pointer;">
+        <td>{{ staff.id }}</td>
+        <td>{{ staff.first_name }}</td>
+        <td>{{ staff.last_name }}</td>
+        <td>{{ staff.position }}</td>
+        <td>{{ staff.phone }}</td>
+        <td>{{ staff.email }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <div class="empty-state">
+    <i data-lucide="briefcase" size="40"></i>
+    <p>No staff found.</p>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}
