@@ -1,3 +1,5 @@
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 
 from .models import (
@@ -26,12 +28,35 @@ def about_view(request):
 
 def login_view(request):
     if request.method == 'POST':
-        return redirect('dashboard')
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            next_url = request.GET.get('next', 'dashboard')
+            return redirect(next_url)
+        return render(request, 'login.html', {'error': 'Invalid username or password.'})
     return render(request, 'login.html')
 
 
+def logout_view(request):
+    logout(request)
+    return redirect('home')
+
+
+@login_required(login_url='/login/')
 def dashboard_view(request):
-    return render(request, 'dashboard.html')
+    context = {
+        'citizen_count': Citizen.objects.count(),
+        'vehicle_count': Vehicle.objects.count(),
+        'signal_count': TrafficSignal.objects.count(),
+        'route_count': TransportRoute.objects.count(),
+        'transport_count': PublicTransport.objects.count(),
+        'payment_count': Payment.objects.count(),
+        'staff_count': Staff.objects.count(),
+        'calculation_count': Calculation.objects.count(),
+    }
+    return render(request, 'dashboard.html', context)
 
 
 def allcitizens(request):

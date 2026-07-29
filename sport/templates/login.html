@@ -121,6 +121,11 @@
     </div>
     <h1 style="text-align:center;">Welcome Back</h1>
     <p class="sub" style="text-align:center;">Sign in to access the dashboard.</p>
+    {% if error %}
+    <div style="background:#fef2f2;border:1px solid #fecaca;color:#dc2626;border-radius:10px;padding:12px 16px;margin-bottom:20px;font-size:0.85rem;display:flex;align-items:center;gap:8px;" data-aos="fade-up">
+      <i data-lucide="alert-circle" size="16"></i> {{ error }}
+    </div>
+    {% endif %}
     <form method="post">
       {% csrf_token %}
       <div class="form-group" data-aos="fade-up" data-aos-delay="100">
