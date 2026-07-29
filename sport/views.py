@@ -27,21 +27,17 @@ def login_view(request):
     if request.method == 'POST':
         identifier = request.POST.get('username', '').strip()
         password = request.POST.get('password', '')
+        try:
+            citizen = Citizen.objects.get(national_id=identifier)
+            profile = UserProfile.objects.get(citizen=citizen)
+            if profile.is_first_login:
+                login(request, profile.user)
+                return redirect('set_password')
+        except (Citizen.DoesNotExist, UserProfile.DoesNotExist):
+            pass
         user = authenticate(request, username=identifier, password=password)
-        if not user:
-            try:
-                citizen = Citizen.objects.get(national_id=identifier)
-                user = authenticate(request, username=citizen.national_id, password=password)
-            except Citizen.DoesNotExist:
-                user = None
         if user is not None:
             login(request, user)
-            try:
-                profile = user.profile
-                if profile.is_first_login and not user.has_usable_password():
-                    return redirect('set_password')
-            except UserProfile.DoesNotExist:
-                pass
             if user.is_staff:
                 return redirect('dashboard')
             return redirect('user_dashboard')
