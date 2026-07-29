@@ -306,6 +306,14 @@ def signal_detail(request, id):
 
 
 def add_signal(request):
+    if request.method == 'POST':
+        TrafficSignal.objects.create(
+            location=request.POST['location'],
+            signal_status=request.POST.get('signal_status', 'Active'),
+            installation_date=request.POST.get('installation_date') or '2024-01-01',
+            last_maintenance=request.POST.get('last_maintenance') or '2024-01-01',
+        )
+        return redirect('allsignals')
     return render(request, 'add_signal.html')
 
 
@@ -320,6 +328,15 @@ def routes_detail(request, id):
 
 
 def add_route(request):
+    if request.method == 'POST':
+        TransportRoute.objects.create(
+            route_name=request.POST['route_name'],
+            start_point=request.POST['start_point'],
+            end_point=request.POST['end_point'],
+            distance=request.POST.get('distance', 0),
+            estimated_time=request.POST.get('estimated_time', ''),
+        )
+        return redirect('allroutes')
     return render(request, 'add_route.html')
 
 
@@ -454,3 +471,21 @@ def add_smart_card(request):
         return redirect('all_smart_cards')
     citizens = Citizen.objects.all()
     return render(request, 'add_smart_card.html', {'citizens': citizens})
+def profile_view(request):
+    try:
+        profile = request.user.profile
+        citizen = profile.citizen
+    except (UserProfile.DoesNotExist, AttributeError):
+        citizen = None
+    if not citizen:
+        return redirect('dashboard')
+    smart_cards = SmartCard.objects.filter(citizen=citizen)
+    tickets = Ticket.objects.filter(citizen=citizen).order_by('-purchase_date')
+    vehicles = Vehicle.objects.filter(citizen=citizen)
+    context = {
+        'citizen': citizen,
+        'smart_cards': smart_cards,
+        'tickets': tickets,
+        'vehicles': vehicles,
+    }
+    return render(request, 'profile.html', context)

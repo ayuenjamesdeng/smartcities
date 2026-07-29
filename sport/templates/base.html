@@ -132,16 +132,29 @@
 </head>
 <body>
   <nav class="navbar">
-    <a href="/" class="navbar-brand">
+    <a href="{% if user.is_authenticated %}{% url 'user_dashboard' %}{% else %}/{% endif %}" class="navbar-brand">
       <span class="brand-icon"><i data-lucide="building-2" size="18"></i></span>
       SmartCity
     </a>
+    {% if user.is_authenticated and user.profile.citizen_id %}
+    <div class="navbar-links">
+      <a href="{% url 'user_dashboard' %}" class="{% if request.path == '/user-dashboard/' %}active{% endif %}">Dashboard</a>
+      <a href="{% url 'bus_tracking' %}" class="{% if request.path == '/bus-tracking/' %}active{% endif %}">Bus Tracking</a>
+      <a href="{% url 'trip_planning' %}" class="{% if request.path == '/trip-planning/' %}active{% endif %}">Plan Trip</a>
+      <a href="{% url 'ticketing' %}" class="{% if request.path == '/ticketing/' %}active{% endif %}">Tickets</a>
+      <div style="display:flex;align-items:center;gap:10px;margin-left:12px;padding-left:16px;border-left:1px solid rgba(255,255,255,0.1);">
+        <span style="font-size:0.8rem;color:rgba(255,255,255,0.6);">{{ user.profile.citizen.full_name|default:user.username }}</span>
+        <a href="/logout/" class="btn-signin" style="padding:6px 14px;font-size:0.8rem;"><i data-lucide="log-out" size="14" style="margin-right:4px;vertical-align:middle"></i>Sign Out</a>
+      </div>
+    </div>
+    {% else %}
     <div class="navbar-links">
       <a href="/" class="{% if request.path == '/' %}active{% endif %}">Home</a>
       <a href="/services/" class="{% if request.path == '/services/' %}active{% endif %}">Services</a>
       <a href="/about/" class="{% if request.path == '/about/' %}active{% endif %}">About</a>
       <a href="/login/" class="btn-signin"><i data-lucide="log-in" size="16" style="margin-right:6px;vertical-align:middle"></i>Sign In</a>
     </div>
+    {% endif %}
   </nav>
 
   <main class="content">{% block content %}{% endblock %}</main>

@@ -10,6 +10,7 @@ urlpatterns = [
     path('set-password/', views.set_password_view, name='set_password'),
     path('dashboard/', views.dashboard_view, name='dashboard'),
     path('user-dashboard/', views.user_dashboard_view, name='user_dashboard'),
+    path('profile/', views.profile_view, name='profile'),
 
     path('bus-tracking/', views.bus_tracking_view, name='bus_tracking'),
     path('api/bus-locations/', views.bus_locations_json, name='bus_locations_json'),
