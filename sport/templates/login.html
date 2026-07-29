@@ -1,60 +1,143 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login | Smart Cities</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background: linear-gradient(135deg, #f8fbff 0%, #eef4ff 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-        }
-        .card {
-            width: min(420px, 90%);
-            background: white;
-            padding: 32px;
-            border-radius: 20px;
-            box-shadow: 0 16px 40px rgba(15, 23, 42, 0.12);
-        }
-        h1 { color: #2563eb; margin-top: 0; }
-        form { display: flex; flex-direction: column; gap: 14px; }
-        input {
-            padding: 12px 14px;
-            border-radius: 10px;
-            border: 1px solid #d1d5db;
-            font-size: 15px;
-        }
-        button {
-            background: linear-gradient(135deg, #2563eb, #3b82f6);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            padding: 12px 14px;
-            font-weight: 700;
-            cursor: pointer;
-        }
-        .links { margin-top: 12px; font-size: 14px; }
-        .links a { color: #2563eb; text-decoration: none; }
-    </style>
-</head>
-<body>
-    <div class="card">
-        <h1>Welcome Back</h1>
-        <p>Sign in to access the dashboard.</p>
-        <form method="post">
-            {% csrf_token %}
-            <input type="text" name="username" placeholder="Username" required>
-            <input type="password" name="password" placeholder="Password" required>
-            <button type="submit">Login</button>
-        </form>
-        <div class="links">
-            <a href="/">Back to Home</a>
-        </div>
+{% extends "base.html" %}
+
+{% block title %}Sign In — Smart City Platform{% endblock %}
+
+{% block head %}
+<style>
+  .login-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 68px - 72px);
+    padding: 40px 20px;
+    background: linear-gradient(135deg, #f8fafc 0%, #eef2ff 100%);
+  }
+
+  .login-card {
+    width: 100%;
+    max-width: 400px;
+    background: #fff;
+    border-radius: 20px;
+    padding: 40px 36px;
+    box-shadow: 0 12px 40px rgba(15, 23, 42, 0.08);
+    border: 1px solid #e2e8f0;
+  }
+
+  .login-card h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 6px;
+  }
+
+  .login-card .sub {
+    color: #64748b;
+    font-size: 0.9rem;
+    margin-bottom: 28px;
+  }
+
+  .form-group { margin-bottom: 18px; }
+
+  .form-group label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #334155;
+    margin-bottom: 6px;
+  }
+
+  .form-group input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    box-sizing: border-box;
+  }
+
+  .form-group input:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59,130,246,0.1);
+  }
+
+  .btn-submit {
+    width: 100%;
+    padding: 13px;
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 14px rgba(59,130,246,0.3);
+  }
+
+  .btn-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(59,130,246,0.45);
+  }
+
+  .btn-submit:active { transform: translateY(0); }
+
+  .login-footer {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.85rem;
+    color: #94a3b8;
+  }
+
+  .login-footer a {
+    color: #3b82f6;
+    text-decoration: none;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .login-footer a:hover { text-decoration: underline; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="login-wrapper" data-aos="fade-up" data-aos-duration="700">
+  <div class="login-card">
+    <div style="text-align:center;margin-bottom:8px;" data-aos="zoom-in" data-aos-delay="200">
+      <div style="width:56px;height:56px;border-radius:16px;background:linear-gradient(135deg,#3b82f6,#8b5cf6);display:inline-flex;align-items:center;justify-content:center;">
+        <i data-lucide="building-2" size="28" style="color:#fff;"></i>
+      </div>
     </div>
-</body>
-</html>
+    <h1 style="text-align:center;">Welcome Back</h1>
+    <p class="sub" style="text-align:center;">Sign in to access the dashboard.</p>
+    <form method="post">
+      {% csrf_token %}
+      <div class="form-group" data-aos="fade-up" data-aos-delay="100">
+        <label for="username"><i data-lucide="user" size="14"></i> Username</label>
+        <input type="text" id="username" name="username" placeholder="Enter your username" required>
+      </div>
+      <div class="form-group" data-aos="fade-up" data-aos-delay="200">
+        <label for="password"><i data-lucide="lock" size="14"></i> Password</label>
+        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+      </div>
+      <button type="submit" class="btn-submit" data-aos="fade-up" data-aos-delay="300">
+        Sign In <i data-lucide="log-in" size="18"></i>
+      </button>
+    </form>
+    <div class="login-footer" data-aos="fade-up" data-aos-delay="400">
+      <a href="/"><i data-lucide="arrow-left" size="14"></i> Back to Home</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,6 +1,4 @@
 from django.db import models
-
-# Create your models here.
 class Citizen(models.Model):
     full_name = models.CharField(max_length=100)
     gender = models.CharField(max_length=10)

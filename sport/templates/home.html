@@ -1,114 +1,274 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Smart Cities and Mobility System</title>
+{% extends "base.html" %}
+{% load static %}
 
-    <style>
-        body{
-            font-family: Arial, sans-serif;
-            background-color:#f4f4f4;
-            margin:0;
-            padding:0;
-        }
+{% block title %}Smart City Platform — Intelligent Urban Management{% endblock %}
 
-        header{
-            background-color:darkblue;
-            color:white;
-            text-align:center;
-            padding:20px;
-        }
+{% block head %}
+<style>
+  .hero {
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #1e40af 100%);
+    background-size: 400% 400%;
+    animation: gradientShift 12s ease infinite;
+    color: #fff;
+    padding: 100px 40px 80px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
 
-        nav{
-            background-color:#333;
-            padding:15px;
-            text-align:center;
-        }
+  @keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
 
-        nav a{
-            color:white;
-            text-decoration:none;
-            margin:15px;
-            font-weight:bold;
-        }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 30% 50%, rgba(59,130,246,0.15) 0%, transparent 50%),
+                radial-gradient(circle at 70% 50%, rgba(139,92,246,0.1) 0%, transparent 50%);
+    pointer-events: none;
+    animation: pulseGlow 6s ease-in-out infinite;
+  }
 
-        nav a:hover{
-            color:yellow;
-        }
+  @keyframes pulseGlow {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+  }
 
-        .container{
-            width:80%;
-            margin:auto;
-            background:white;
-            padding:20px;
-            margin-top:20px;
-            border-radius:10px;
-            box-shadow:0 0 10px gray;
-        }
+  .hero-content { position: relative; max-width: 800px; margin: 0 auto; }
 
-        h2{
-            color:darkblue;
-        }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.15);
+    padding: 6px 18px;
+    border-radius: 100px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    color: rgba(255,255,255,0.8);
+  }
 
-        footer{
-            background-color:darkblue;
-            color:white;
-            text-align:center;
-            padding:15px;
-            margin-top:30px;
-        }
-    </style>
+  .hero h1 {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    margin-bottom: 20px;
+  }
 
-</head>
-<body>
+  .hero h1 .gradient-text {
+    background: linear-gradient(135deg, #60a5fa, #a78bfa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
 
-<header>
-    <h1>SMART CITIES AND MOBILITY SYSTEM</h1>
-</header>
+  .hero p {
+    font-size: 1.15rem;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.7;
+    max-width: 640px;
+    margin: 0 auto 36px;
+  }
 
-<nav>
-    <a href="/">Home</a>
-    <a href="/citizens/">Citizens</a>
-    <a href="/vehicles/">Vehicles</a>
-    <a href="/signals/">Traffic Signals</a>
-    <a href="/routes/">Transport Routes</a>
-    <a href="/transport/">Public Transport</a>
-    <a href="/about/">About</a>
-    <a href="/spaceparking/">spaceparking</a>
-    <a href="/payment/">payment</a>
-    <a href="/staff/">staff</a>
-    <a href="/calculations/">calculations</a> 
-</nav>
+  .hero-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
 
-<div class="container">
+  .btn-primary, .btn-secondary {
+    text-decoration: none;
+    padding: 14px 32px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+  }
 
-    <h2>Welcome</h2>
+  .btn-primary {
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(59,130,246,0.35);
+  }
 
-    <p>
-        Welcome to the Smart Cities and Mobility System.
-        This system is designed to manage citizens, vehicles,
-        traffic signals, transport routes, and public transport,spaceparking,staff,calculations
-        services in one place.
-    </p>
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(59,130,246,0.5); }
 
-    <h2>System Modules</h2>
+  .btn-secondary {
+    background: rgba(255,255,255,0.08);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.15);
+  }
 
-    <ul>
-        <li>Citizen Management</li>
-        <li>Vehicle Management</li>
-        <li>Traffic Signal Management</li>
-        <li>Transport Route Management</li>
-        <li>Public Transport Management</li>
-        <li>parking space Management</li>
-        <li>payment Management</li>
-        <li>staff Management</li>
-        <li>calculations Management</li>
-    </ul>
+  .btn-secondary:hover { background: rgba(255,255,255,0.14); transform: translateY(-3px); }
 
-</div>
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 48px;
+    margin-top: 56px;
+    flex-wrap: wrap;
+  }
 
-<footer>
-    <p>&copy; 2026 Smart Cities and Mobility System</p>
-</footer>
+  .hero-stat { text-align: center; }
 
-</body>
-</html>
+  .hero-stat .num {
+    font-size: 2rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #60a5fa, #a78bfa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-stat .label { font-size: 0.85rem; color: rgba(255,255,255,0.5); margin-top: 4px; }
+
+  .section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 80px 40px;
+  }
+
+  .section-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    text-align: center;
+    margin-bottom: 12px;
+  }
+
+  .section-sub {
+    text-align: center;
+    color: #64748b;
+    max-width: 560px;
+    margin: 0 auto 48px;
+    line-height: 1.6;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+  }
+
+  .feature-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 28px 24px;
+    border: 1px solid #e2e8f0;
+    transition: all 0.3s ease;
+  }
+
+  .feature-card:hover {
+    border-color: #93c5fd;
+    box-shadow: 0 12px 32px rgba(59,130,246,0.1);
+    transform: translateY(-6px);
+  }
+
+  .feature-card .icon-wrap {
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    transition: transform 0.3s ease;
+  }
+
+  .feature-card:hover .icon-wrap { transform: scale(1.1) rotate(-4deg); }
+
+  .feature-card h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: 8px; }
+
+  .feature-card p { font-size: 0.9rem; color: #64748b; line-height: 1.6; }
+
+  .icon-blue { background: #eff6ff; color: #2563eb; }
+  .icon-purple { background: #f5f3ff; color: #7c3aed; }
+  .icon-green { background: #f0fdf4; color: #16a34a; }
+  .icon-orange { background: #fff7ed; color: #ea580c; }
+  .icon-pink { background: #fdf2f8; color: #db2777; }
+  .icon-teal { background: #f0fdfa; color: #0d9488; }
+  .icon-indigo { background: #eef2ff; color: #4f46e5; }
+  .icon-red { background: #fef2f2; color: #dc2626; }
+  .icon-cyan { background: #ecfeff; color: #0891b2; }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <div class="hero-content" data-aos="fade-up" data-aos-duration="800">
+    <div class="hero-badge"><i data-lucide="sparkles" size="14"></i> Next-Gen Urban Platform</div>
+    <h1>Smart Cities &amp; <span class="gradient-text">Mobility System</span></h1>
+    <p>Unified platform to manage citizens, vehicles, traffic, transport, parking, payments, staff, and analytics — all in one intelligent dashboard.</p>
+    <div class="hero-actions">
+      <a href="/services/" class="btn-primary" data-aos="fade-up" data-aos-delay="200">Explore Services <i data-lucide="arrow-right" size="18"></i></a>
+      <a href="/about/" class="btn-secondary" data-aos="fade-up" data-aos-delay="300">Learn More <i data-lucide="chevron-right" size="18"></i></a>
+    </div>
+    <div class="hero-stats" data-aos="fade-up" data-aos-delay="400">
+      <div class="hero-stat"><div class="num">9+</div><div class="label">Modules</div></div>
+      <div class="hero-stat"><div class="num">Real-time</div><div class="label">Operations</div></div>
+      <div class="hero-stat"><div class="num">One</div><div class="label">Dashboard</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <h2 class="section-title" data-aos="fade-up">Platform Modules</h2>
+  <p class="section-sub" data-aos="fade-up" data-aos-delay="100">Everything you need to run a modern city's mobility and civic infrastructure.</p>
+  <div class="features-grid">
+    <div class="feature-card" data-aos="fade-up" data-aos-delay="0">
+      <div class="icon-wrap icon-blue"><i data-lucide="users" size="20"></i></div>
+      <h3>Citizen Management</h3>
+      <p>Centralized profiles for residents with contact info and records.</p>
+    </div>
+    <div class="feature-card" data-aos="fade-up" data-aos-delay="50">
+      <div class="icon-wrap icon-green"><i data-lucide="car" size="20"></i></div>
+      <h3>Vehicle Management</h3>
+      <p>Track vehicles, ownership, and parking assignments.</p>
+    </div>
+    <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+      <div class="icon-wrap icon-orange"><i data-lucide="traffic-cone" size="20"></i></div>
+      <h3>Traffic Signals</h3>
+      <p>Monitor and manage traffic signal infrastructure.</p>
+    </div>
+    <div class="feature-card" data-aos="fade-up" data-aos-delay="150">
+      <div class="icon-wrap icon-purple"><i data-lucide="bus" size="20"></i></div>
+      <h3>Transport Routes</h3>
+      <p>Manage route networks and public transit schedules.</p>
+    </div>
+    <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+      <div class="icon-wrap icon-teal"><i data-lucide="train" size="20"></i></div>
+      <h3>Public Transport</h3>
+      <p>Oversee buses, trains, and public mobility services.</p>
+    </div>
+    <div class="feature-card" data-aos="fade-up" data-aos-delay="250">
+      <div class="icon-wrap icon-indigo"><i data-lucide="parking-circle" size="20"></i></div>
+      <h3>Parking Spaces</h3>
+      <p>Allocate and track parking space inventory.</p>
+    </div>
+    <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+      <div class="icon-wrap icon-pink"><i data-lucide="credit-card" size="20"></i></div>
+      <h3>Payment Management</h3>
+      <p>Process and review civic payments and transactions.</p>
+    </div>
+    <div class="feature-card" data-aos="fade-up" data-aos-delay="350">
+      <div class="icon-wrap icon-red"><i data-lucide="briefcase" size="20"></i></div>
+      <h3>Staff Management</h3>
+      <p>Maintain staff records and assignments.</p>
+    </div>
+    <div class="feature-card" data-aos="fade-up" data-aos-delay="400">
+      <div class="icon-wrap icon-cyan"><i data-lucide="bar-chart-3" size="20"></i></div>
+      <h3>Calculations &amp; Reports</h3>
+      <p>Generate reports and data-driven insights.</p>
+    </div>
+  </div>
+</section>
+{% endblock %}
