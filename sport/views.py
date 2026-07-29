@@ -121,7 +121,13 @@ def user_dashboard_view(request):
 def bus_tracking_view(request):
     now = timezone.now()
     five_min_ago = now - timedelta(minutes=5)
-    buses = BusLocation.objects.filter(timestamp__gte=five_min_ago).select_related('bus', 'bus__route').distinct('bus')
+    recent = BusLocation.objects.filter(timestamp__gte=five_min_ago).select_related('bus', 'bus__route').order_by('-timestamp')
+    seen = set()
+    buses = []
+    for loc in recent:
+        if loc.bus_id not in seen:
+            seen.add(loc.bus_id)
+            buses.append(loc)
     all_buses = PublicTransport.objects.filter(status='Active').select_related('vehicle', 'route')
     context = {
         'buses': buses,
@@ -133,16 +139,15 @@ def bus_tracking_view(request):
 @login_required(login_url='/login/')
 def bus_locations_json(request):
     five_min_ago = timezone.now() - timedelta(minutes=5)
-    locations = BusLocation.objects.filter(timestamp__gte=five_min_ago).select_related('bus', 'bus__route')
-    data = []
+    recent = BusLocation.objects.filter(timestamp__gte=five_min_ago).select_related('bus', 'bus__route').order_by('-timestamp')
     seen = set()
-    for loc in locations:
-        bus_id = loc.bus_id
-        if bus_id not in seen:
-            seen.add(bus_id)
+    data = []
+    for loc in recent:
+        if loc.bus_id not in seen:
+            seen.add(loc.bus_id)
             data.append({
                 'id': loc.id,
-                'bus_id': bus_id,
+                'bus_id': loc.bus_id,
                 'driver': loc.bus.driver_name,
                 'route': loc.bus.route.route_name,
                 'lat': loc.latitude,
