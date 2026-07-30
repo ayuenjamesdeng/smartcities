@@ -351,6 +351,16 @@ def transport_detail(request, id):
 
 
 def add_transport(request):
+    if request.method == 'POST':
+        PublicTransport.objects.create(
+            vehicle_id=request.POST['vehicle_id'],
+            route_id=request.POST['route_id'],
+            driver_name=request.POST['driver_name'],
+            capacity=request.POST['capacity'],
+            fare=request.POST['fare'],
+            status=request.POST['status'],
+        )
+        return redirect('alltransport')
     return render(request, 'add_transport.html')
 
 
@@ -365,6 +375,16 @@ def public_transport_detail(request, id):
 
 
 def add_public_transport(request):
+    if request.method == 'POST':
+        PublicTransport.objects.create(
+            vehicle_id=request.POST['vehicle_id'],
+            route_id=request.POST['route_id'],
+            driver_name=request.POST['driver_name'],
+            capacity=request.POST['capacity'],
+            fare=request.POST['fare'],
+            status=request.POST['status'],
+        )
+        return redirect('allpublictransport')
     return render(request, 'add_transport.html')
 
 
@@ -379,6 +399,14 @@ def payment_detail(request, id):
 
 
 def add_payment(request):
+    if request.method == 'POST':
+        Payment.objects.create(
+            amount=request.POST['amount'],
+            payment_method=request.POST['payment_method'],
+            payment_date=request.POST['payment_date'],
+            payment_status=request.POST['payment_status'],
+        )
+        return redirect('allpayments')
     return render(request, 'add_payment.html')
 
 
@@ -393,6 +421,16 @@ def staff_detail(request, id):
 
 
 def add_staff(request):
+    if request.method == 'POST':
+        Staff.objects.create(
+            first_name=request.POST['first_name'],
+            last_name=request.POST['last_name'],
+            phone=request.POST['phone'],
+            email=request.POST['email'],
+            position=request.POST['position'],
+            salary=request.POST['salary'],
+        )
+        return redirect('allstaff')
     return render(request, 'add_staff.html')
 
 
@@ -407,6 +445,15 @@ def calculation_detail(request, id):
 
 
 def add_calculation(request):
+    if request.method == 'POST':
+        Calculation.objects.create(
+            total_vehicles=request.POST['total_vehicles'],
+            parked_vehicles=request.POST['parked_vehicles'],
+            exited_vehicles=request.POST['exited_vehicles'],
+            total_hours=request.POST['total_hours'],
+            total_amount=request.POST['total_amount'],
+        )
+        return redirect('allcalculations')
     return render(request, 'add_calculations.html')
 
 
@@ -471,6 +518,8 @@ def add_smart_card(request):
         return redirect('all_smart_cards')
     citizens = Citizen.objects.all()
     return render(request, 'add_smart_card.html', {'citizens': citizens})
+
+
 def profile_view(request):
     try:
         profile = request.user.profile
